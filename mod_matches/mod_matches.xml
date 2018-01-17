@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension type="module" version="3.5" client="site" method="upgrade">
+<extension type="module" version="3.8" client="site" method="upgrade">
     <name>BCS Matches</name>
     <author>Lodder</author>
 	<creationDate>21th May 2016</creationDate>
-	<copyright>Copyright (C) 2016 | Lodder</copyright>
+	<copyright>Copyright (C) 2018 | Lodder</copyright>
 	<license>http://www.gnu.org/licenses/gpl-3.0.html</license>
 	<authorEmail>admin@bcsmania.co.uk</authorEmail>
     <version>1.0</version>
     <description>BCS Matches</description>
 
     <files>
-        <filename>mod_matches.xml</filename>
         <filename module="mod_matches">mod_matches.php</filename>
         <filename>helper.php</filename>
         <filename>index.html</filename>

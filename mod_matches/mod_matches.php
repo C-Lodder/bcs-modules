@@ -1,12 +1,11 @@
 <?php
 /**
-* @package    BCS_Matches
-* @author     Lodder
-* @copyright  Copyright (C) 2016 Lodder. All Rights Reserved
-* @license    GPL v3.0 or later http://www.gnu.org/licenses/gpl-3.0.html
-*/
+ * @package    BCS_Matches
+ * @author     Lodder
+ * @copyright  Copyright (C) 2018 Lodder. All Rights Reserved
+ * @license    GPL v3.0 or later http://www.gnu.org/licenses/gpl-3.0.html
+ */
 
-// No direct access
 defined('_JEXEC') or die('Restricted access');
 
 // Get the helper file

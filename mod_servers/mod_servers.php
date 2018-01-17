@@ -1,14 +1,12 @@
 <?php
 /**
-* @package    BCS_Servers
-* @author     Lodder
-* @copyright  Copyright (C) 2015 Lodder. All Rights Reserved
-* @license    GPL v3.0 or later http://www.gnu.org/licenses/gpl-3.0.html
-*/
+ * @package    BCS_Servers
+ * @author     Lodder
+ * @copyright  Copyright (C) 2018 Lodder. All Rights Reserved
+ * @license    GPL v3.0 or later http://www.gnu.org/licenses/gpl-3.0.html
+ */
 
-// No direct access
 defined('_JEXEC') or die('Restricted access');
-
 
 // Get the helper file
 JLoader::register('ModServersHelper', __DIR__ . '/helper.php');

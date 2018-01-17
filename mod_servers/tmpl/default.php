@@ -1,13 +1,12 @@
 <?php
 /**
-* @package    Trackmania Server Stats
-* @author     Charlie Lodder
-* @copyright  Copyright (C) 2017 Charlie Lodder. All Rights Reserved
-* @license    GPL v3.0 or later http://www.gnu.org/licenses/gpl-3.0.html
-*/
+ * @package    BCS_Servers
+ * @author     Lodder
+ * @copyright  Copyright (C) 2018 Lodder. All Rights Reserved
+ * @license    GPL v3.0 or later http://www.gnu.org/licenses/gpl-3.0.html
+ */
 
-// No direct access
-defined('_JEXEC')  or die('Restricted access');
+defined('_JEXEC') or die('Restricted access');
 
 $showPrivateServer = false;
 ?>
@@ -40,13 +39,13 @@ $showPrivateServer = false;
 				echo $nickname;
 				if ($login == 'bcsrace')
 				{
-					echo ' <i class="uk-icon-lock"></i>';
+					echo ' <span class="uk-icon-lock" aria-hidden="true"></span>';
 				}
 				echo '</td>';
 	
-				echo '<td class="update"><span class="spinner count_' . $id . '">' . $server->playercount . '</span><i class="uk-icon-spinner uk-icon-spin" style="display:none"></i> / ' . $server->maxplayers . '</td>';
-				echo '<td class="update uk-hidden-small"><span class="spinner currentmap_' . $id . '">' . $cp->toHTML($current, true) . '</span><i class="uk-icon-spinner uk-icon-spin" style="display:none"></i></td>';
-				echo '<td class="update uk-visible-large"><span class="spinner nextmap_' . $id . '">' . $cp->toHTML($next, true) . '</span><i class="uk-icon-spinner uk-icon-spin" style="display:none"></i></td>';
+				echo '<td class="update"><span class="spinner count_' . $id . '">' . $server->playercount . '</span><span class="uk-icon-spinner uk-icon-spin" aria-hidden="true" style="display:none"></span> / ' . $server->maxplayers . '</td>';
+				echo '<td class="update uk-hidden-small"><span class="spinner currentmap_' . $id . '">' . $cp->toHTML($current, true) . '</span><span class="uk-icon-spinner uk-icon-spin" aria-hidden="true" style="display:none"></span></td>';
+				echo '<td class="update uk-visible-large"><span class="spinner nextmap_' . $id . '">' . $cp->toHTML($next, true) . '</span><span class="uk-icon-spinner uk-icon-spin" aria-hidden="true" style="display:none"></span></td>';
 				echo '<td class="uk-hidden-small server-actions">
 						<a class="uk-icon-users" href="#' . $login . '" class="' . $login . '" data-uk-modal data-uk-tooltip title="Players"></a>	
 						<a class="uk-icon-sign-in" href="maniaplanet://#join=' . $login . '@' . $server->title . '" target="_blank" data-uk-tooltip title="Join"></a>
@@ -189,7 +188,7 @@ $showPrivateServer = false;
 					beforeSend: function()
 					{
 						playerList.innerHTML = '';
-						playerList.innerHTML = '<li><i class="uk-icon-spinner uk-icon-spin uk-icon-large"></i></li>';
+						playerList.innerHTML = '<li><span class="uk-icon-spinner uk-icon-spin uk-icon-large" aria-hidden="true"></span></li>';
 					},
 					success: function(response)
 					{

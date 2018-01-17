@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension type="module" version="3.6" client="site" method="upgrade">
+<extension type="module" version="3.8" client="site" method="upgrade">
 	<name>BCS Tracks</name>
-	<author>BCS</author>
+	<author>Lodder</author>
 	<creationDate>17-Oct-2016</creationDate>
-	<copyright>Copyright (C) 2017 BCS</copyright>
+	<copyright>Copyright (C) 2018 | Lodder</copyright>
 	<license>http://www.gnu.org/licenses/gpl-3.0.html</license>
-	<authorEmail>lodder@bcsmania.co.uk</authorEmail>
-	<authorUrl>http://www.bcsmania.co.uk</authorUrl>
+	<authorEmail>admin@bcsmania.co.uk</authorEmail>
 	<version>1.0.1</version>
 	<description>Latest BCS tracks - pulled from ManiaExchange</description>
 	<files>
@@ -17,7 +16,8 @@
 	</files>
 	<config>
 		<fields name="params">
-			<fieldset name="basic">
+			<fieldset name="basic">
+
 				<field name="authors" type="textarea" default="" label="Author ID's (comma separated)" />
 				<field
 					name="moduleclass_sfx"
@@ -27,4 +27,5 @@
 			</fieldset>
 		</fields>
 	</config>
-</extension>
+
+</extension>

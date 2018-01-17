@@ -1,14 +1,14 @@
 <?php
-
 /**
-* @package    BCS_Latest_Tracks
-* @copyright  Copyright (C) 2016 BCS. All rights reserved.
-* @license    GPL v3.0 or later http://www.gnu.org/licenses/gpl-3.0.html
-*/
+ * @package    BCS_Latest_Tracks
+ * @author     Lodder
+ * @copyright  Copyright (C) 2018 Lodder. All Rights Reserved
+ * @license    GPL v3.0 or later http://www.gnu.org/licenses/gpl-3.0.html
+ */
 
 defined('_JEXEC') or die('Restricted access');
 
-JHtml::_('script', JUri::root() . 'templates/yoo_monday/warp/vendor/uikit/js/components/slider.js', array(), array('async' => true));
+JHtml::_('script', JUri::root() . 'templates/yoo_monday/warp/vendor/uikit/js/components/slider.js', [], ['async' => true]);
 
 $audio = JUri::root() . 'modules/mod_tracks/pussy-cat.mp3';
 

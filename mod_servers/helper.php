@@ -1,10 +1,10 @@
 <?php
 /**
-* @package    BCS_Servers
-* @author     Lodder
-* @copyright  Copyright (C) 2015 Lodder. All Rights Reserved
-* @license    GPL v3.0 or later http://www.gnu.org/licenses/gpl-3.0.html
-*/
+ * @package    BCS_Servers
+ * @author     Lodder
+ * @copyright  Copyright (C) 2018 Lodder. All Rights Reserved
+ * @license    GPL v3.0 or later http://www.gnu.org/licenses/gpl-3.0.html
+ */
 
 defined('_JEXEC') or die('Restricted access');
 
@@ -19,7 +19,7 @@ class ModServersHelper
 		$db = JFactory::getDbo();
 
 		$query = $db->getQuery(true);
-		$query->select(array('*'));
+		$query->select(['*']);
 		$query->from($db->quoteName('servers'));
 
 		if ($login != '')
@@ -57,7 +57,7 @@ class ModServersHelper
 
 		$helper       = new ModServersHelper();
 		$helper->ajax = true;
-		$array        = JFactory::getApplication()->input->post->getArray(array());
+		$array        = JFactory::getApplication()->input->post->getArray([]);
 		$servers      = $helper->getServers($array['data']['server']);
 
 		$htmlOutput = '';
@@ -93,7 +93,7 @@ class ModServersHelper
 		$db = JFactory::getDbo();
 
 		$query = $db->getQuery(true);
-		$query->select(array('*'))
+		$query->select(['*'])
 			  ->from($db->quoteName('players'))
 			  ->where($db->quoteName('server_id') . ' = ' . $id);
 		$db->setQuery($query);

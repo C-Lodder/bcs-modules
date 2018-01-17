@@ -1,13 +1,12 @@
 ﻿<?php
 /**
-* @package    BCS_Matches
-* @author     Lodder
-* @copyright  Copyright (C) 2017 Lodder. All Rights Reserved
-* @license    GPL v3.0 or later http://www.gnu.org/licenses/gpl-3.0.html
-*/
+ * @package    BCS_Matches
+ * @author     Lodder
+ * @copyright  Copyright (C) 2018 Lodder. All Rights Reserved
+ * @license    GPL v3.0 or later http://www.gnu.org/licenses/gpl-3.0.html
+ */
 
-// No direct access
-defined('_JEXEC')  or die('Restricted access');
+defined('_JEXEC') or die('Restricted access');
 
 JFactory::getDocument()->addStyleDeclaration('
 	.match_box {
@@ -44,7 +43,7 @@ JFactory::getDocument()->addStyleDeclaration('
 			echo '<div class="uk-width-medium-1-3">';
 			echo '<div class="match_box">';
 			echo '<ul class="uk-list uk-margin-bottom">';
-			echo '<li class="uk-h6"><i class="uk-icon-justify uk-icon-flag-checkered"></i> ' . $cp->toHTML($map[0]['Name']) . '</li>';
+			echo '<li class="uk-h6"><span class="uk-icon-justify uk-icon-flag-checkered" aria-hidden="true"></span> ' . $cp->toHTML($map[0]['Name']) . '</li>';
 			echo '</ul>';
 			echo '<ul class="uk-list uk-list-line">';
 			$i = 1;
@@ -112,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	{
 		var el = points[i];
 
-		if (el.getAttribute('data-name') == 'bcs')
+		if (el.getAttribute('data-name') === 'bcs')
 		{
 			totalBCS += parseInt(el.getAttribute('data-points'));
 		}

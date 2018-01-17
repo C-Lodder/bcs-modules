@@ -1,9 +1,10 @@
 <?php
 /**
-* @package    BCS_Latest_Tracks
-* @copyright  Copyright (C) 2016 BCS. All rights reserved.
-* @license    GPL v3.0 or later http://www.gnu.org/licenses/gpl-3.0.html
-*/
+ * @package    BCS_Latest_Tracks
+ * @author     Lodder
+ * @copyright  Copyright (C) 2018 Lodder. All Rights Reserved
+ * @license    GPL v3.0 or later http://www.gnu.org/licenses/gpl-3.0.html
+ */
 
 defined('_JEXEC') or die('Restricted access');
 
@@ -30,9 +31,9 @@ class ModBcstracksHelper
 	{
 		$results = array();
 
-		$httpOptions = array(
+		$httpOptions = [
 			'userAgent' => "User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.57 Safari/537.17\r\n"
-		);
+		];
 		$options = new Registry($httpOptions);
 		$http    = JHttpFactory::getHttp($options);
 
@@ -60,7 +61,7 @@ class ModBcstracksHelper
 	 */
 	private function extractData($results)
 	{
-		$track = array();
+		$track = [];
 
 		foreach ($results as $key => $val)
 		{
@@ -106,7 +107,7 @@ class ModBcstracksHelper
 		$diff->w = floor($diff->d / 7);
 		$diff->d -= $diff->w * 7;
 
-		$string = array(
+		$string = [
 			'y' => 'year',
 			'm' => 'month',
 			'w' => 'week',
@@ -114,7 +115,7 @@ class ModBcstracksHelper
 			'h' => 'hour',
 			'i' => 'minute',
 			's' => 'second',
-		);
+		];
 
 		foreach ($string as $k => &$v)
 		{

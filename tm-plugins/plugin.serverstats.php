@@ -26,25 +26,14 @@
 // Start the plugin
 $_PLUGIN = new PluginServerstats();
 
-/*
-#///////////////////////////////////////////////////////////////////////#
-#									#
-#///////////////////////////////////////////////////////////////////////#
-*/
-
-class PluginServerstats extends Plugin {
+class PluginServerstats extends Plugin
+{
     public $config = [
         'url' => 'https://bcsmania.co.uk/statscrawler.php' 
     ];
 
-    /*
-    #///////////////////////////////////////////////////////////////////////#
-    #									#
-    #///////////////////////////////////////////////////////////////////////#
-    */
-
-    public function __construct () {
-
+    public function __construct()
+	{
         // Describe the Plugin
         $this->setVersion('1.0');
         $this->setBuild('1.0');
@@ -52,84 +41,67 @@ class PluginServerstats extends Plugin {
         $this->setCopyright('none');
         $this->setDescription('none');
 
-        // Add required dependencies
-        // $this->addDependence('PluginLocalRecords', Dependence::REQUIRED, '1.0.0', null);
-        // $this->addDependence('PluginRaspJukebox', Dependence::WANTED, '1.0.0', null);
-
         // Register events to interact on
-        // $this->registerEvent('onSync', 'onSync');
         $this->registerEvent('onPlayerConnect', 'syncStats');
         $this->registerEvent('onPlayerDisconnect', 'syncStats');
-	$this->registerEvent('onBeginMap', 'syncStats');
-
-        // Register chat commands
-        // $this->registerChatCommand('hello', 'chat_hello', new Message('plugin.example', 'slash_hello_description'), Player::PLAYERS);
+		$this->registerEvent('onBeginMap', 'syncStats');
     }
 
-    /*
-    #///////////////////////////////////////////////////////////////////////#
-    #									#
-    #///////////////////////////////////////////////////////////////////////#
-    */
+    public function syncStats($aseco, $player)
+	{
+		$players = [];
+		$server  = [];
+		$maps    = [];
 
-    public function syncStats ($aseco, $player) {
+		// Collect players
+		foreach ($aseco->server->players->player_list as $player)
+		{
+			$players[] = [
+				'login' => $player->login, 
+				'nickname' => $player->nickname
+			];
+		}
 
-        $players = array();
-        $server = array();
-        $maps = array();
+		// Get current server information
+		$server['login']    = $aseco->server->login;
+		$server['title']    = $aseco->server->title;
+		$server['nickname'] = $aseco->server->name;
 
-        // Collect players
-        foreach ($aseco->server->players->player_list as $player) {
-            $players[] = [
-                'login' => $player->login, 
-                'nickname' => $player->nickname
-            ];
-        }
+		$server['ladder_min']  = $aseco->server->ladder_limit_min;
+		$server['ladder_max']  = $aseco->server->ladder_limit_max;
+		$server['playercount'] = count($players);
+		$server['maxplayers']  = $aseco->server->options['CurrentMaxPlayers'];
 
-        // // Get current server information
-        $server['login'] = $aseco->server->login;
-        $server['title'] = $aseco->server->title;
-        $server['nickname'] = $aseco->server->name;
+		$next_index = $aseco->client->query("GetNextMapIndex");
+		// Do GetChallengeList and send it the next index, this way you avoid looping through data to find the right one later
+		$nextchallenge = $aseco->client->query("GetMapList", 1, $next_index);
 
-        $server['ladder_min'] = $aseco->server->ladder_limit_min;
-        $server['ladder_max'] = $aseco->server->ladder_limit_max;
-        $server['playercount'] = count($players);
-        $server['maxplayers'] = $aseco->server->options['CurrentMaxPlayers'];
+		$next_index = $aseco->client->query("GetCurrentMapIndex");
+		// Do GetChallengeList and send it the next index, this way you avoid looping through data to find the right one later
+		$currentchallenge = $aseco->client->query("GetMapList", 1, $next_index);
 
-        $next_index = $aseco->client->query("GetNextMapIndex");
-        // do GetChallengeList and send it the next index, this way you avoid looping through data to find the right one later
-        $nextchallenge = $aseco->client->query("GetMapList", 1, $next_index);
+		$maps[] = $currentchallenge;
+		$maps[] = $nextchallenge;
 
-        $next_index = $aseco->client->query("GetCurrentMapIndex");
-        // do GetChallengeList and send it the next index, this way you avoid looping through data to find the right one later
-        $currentchallenge = $aseco->client->query("GetMapList", 1, $next_index);
-        
-        $maps[] = $currentchallenge;
-        $maps[] = $nextchallenge;
+		$stats = [
+		  'server' => $server,
+		  'players' => $players,
+		  'maps' => $maps,
+		];
 
+		$curl = curl_init($this->config['url']);
+		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+		curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+		curl_setopt($curl, CURLOPT_HEADER, false);
+		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($curl, CURLOPT_HTTPHEADER, ["Content-type: multipart/form-data"]);
+		curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
+		curl_setopt($curl, CURLOPT_POSTFIELDS, ['json' => json_encode($stats)]);
 
-        $stats = [
-          'server' => $server,
-          'players' => $players,
-          'maps' => $maps,
-        ];
+		$result = curl_exec($curl);
 
-        $curl = curl_init($this->config['url']);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
-        curl_setopt($curl, CURLOPT_HEADER, false);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, array("Content-type: multipart/form-data"));
-        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
-        curl_setopt($curl, CURLOPT_POSTFIELDS, array('json' => json_encode($stats)));
+		curl_close($curl);
 
-        $result = curl_exec($curl);
-
-        curl_close($curl);
-
-        $aseco->console('synced');
+		$aseco->console('synced');
     }
-
 }
-
-?>

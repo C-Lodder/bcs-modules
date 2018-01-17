@@ -1,7 +1,8 @@
 <?php 
 /**
  * @package    BCS_Latest_Tracks
- * @copyright  Copyright (C) 2017 BCS. All rights reserved.
+ * @author     Lodder
+ * @copyright  Copyright (C) 2018 Lodder. All Rights Reserved
  * @license    GPL v3.0 or later http://www.gnu.org/licenses/gpl-3.0.html
  */
 

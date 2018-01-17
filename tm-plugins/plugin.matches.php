@@ -39,6 +39,7 @@ class PluginMatches extends Plugin
 		// Get the players
         $query1 = "SELECT * FROM `%prefix%players`";
 		$result1 = $aseco->db->query($query1);
+
 		if ($result1)
 		{
 			if ($result1->num_rows > 0)
@@ -55,6 +56,7 @@ class PluginMatches extends Plugin
 		// Get the records
 		$query2 = "SELECT * FROM `%prefix%records`";
 		$result2 = $aseco->db->query($query2);
+
 		if ($result2)
 		{
 			if ($result2->num_rows > 0)
@@ -71,6 +73,7 @@ class PluginMatches extends Plugin
 		// Get the maps
 		$query3 = "SELECT * FROM `%prefix%maps`";
 		$result3 = $aseco->db->query($query3);
+
 		if ($result3)
 		{
 			if ($result3->num_rows > 0)
@@ -95,9 +98,9 @@ class PluginMatches extends Plugin
         curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($curl, CURLOPT_HEADER, false);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, array("Content-type: multipart/form-data"));
+        curl_setopt($curl, CURLOPT_HTTPHEADER, ["Content-type: multipart/form-data"]);
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
-        curl_setopt($curl, CURLOPT_POSTFIELDS, array('json' => json_encode($stats)));
+        curl_setopt($curl, CURLOPT_POSTFIELDS, ['json' => json_encode($stats)]);
 
         $result = curl_exec($curl);
 

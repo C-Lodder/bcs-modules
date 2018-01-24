@@ -40,7 +40,14 @@ class ModBcstracksHelper
 		foreach ($this->authors as $author)
 		{
 			$httpResult = $http->get($this->baseurl . $author);
-			$results[]  = json_decode($httpResult->body);	
+			$json       = json_decode($httpResult->body);
+
+			if ($json->totalItemCount === 0)
+			{
+				continue;
+			}
+
+			$results[] = $json;
 		}
 
 		return $this->extractData($results);

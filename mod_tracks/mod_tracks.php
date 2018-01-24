@@ -19,7 +19,7 @@ $helper  = new ModBcstracksHelper($authors);
 $cache = JFactory::getCache();
 $cache->setCaching(1);
 $cache->setLifeTime(720);
-$tracks = $cache->call(array($helper, 'getAuthorTracks'));
+$tracks = $cache->call([$helper, 'getAuthorTracks']);
 
 // Color parser
 $cp = new TMFColorParser();

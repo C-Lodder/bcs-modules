@@ -29,7 +29,7 @@ class ModBcstracksHelper
 	 */
 	public function getAuthorTracks()
 	{
-		$results = array();
+		$results = [];
 
 		$httpOptions = [
 			'userAgent' => "User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.57 Safari/537.17\r\n"

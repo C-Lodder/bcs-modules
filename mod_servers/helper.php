@@ -60,7 +60,7 @@ class ModServersHelper
 		$array        = JFactory::getApplication()->input->post->getArray([]);
 		$servers      = $helper->getServers($array['data']['server']);
 
-		$htmlOutput = '';
+		$htmlOutput = [];
 
 		foreach ($servers as $server)
 		{

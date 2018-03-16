@@ -8,7 +8,9 @@
 
 defined('_JEXEC') or die('Restricted access');
 
-JLoader::register('TMFColorParser', JPATH_BASE . '/tmfcolorparser.php');
+use Joomla\CMS\Factory;
+
+\JLoader::register('TMFColorParser', JPATH_BASE . '/tmfcolorparser.php');
 
 class ModServersHelper
 {
@@ -16,7 +18,7 @@ class ModServersHelper
 
 	public function getServers($login = null)
 	{
-		$db = JFactory::getDbo();
+		$db = Factory::getDbo();
 
 		$query = $db->getQuery(true);
 		$query->select(['*']);
@@ -57,7 +59,7 @@ class ModServersHelper
 
 		$helper       = new ModServersHelper();
 		$helper->ajax = true;
-		$array        = JFactory::getApplication()->input->post->getArray([]);
+		$array        = Factory::getApplication()->input->post->getArray([]);
 		$servers      = $helper->getServers($array['data']['server']);
 
 		$htmlOutput = [];
@@ -90,7 +92,7 @@ class ModServersHelper
 
 	public function getPlayersData($id)
 	{
-		$db = JFactory::getDbo();
+		$db = Factory::getDbo();
 
 		$query = $db->getQuery(true);
 		$query->select(['*'])

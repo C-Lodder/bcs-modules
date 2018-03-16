@@ -8,15 +8,15 @@
 
 defined('_JEXEC') or die('Restricted access');
 
-// Get the helper file
-JLoader::register('ModMatchesHelper', __DIR__ . '/helper.php');
-JLoader::register('TMFColorParser', JPATH_BASE . '/tmfcolorparser.php');
+use Joomla\CMS\Helper\ModuleHelper;
+
+\JLoader::register('ModMatchesHelper', __DIR__ . '/helper.php');
 
 // Initiate classes
 $helper = new ModMatchesHelper;
-$cp 	= new TMFColorParser();
 
 // Get the results
-$standings = $helper->getMatchStandings();
+$matches = $params->get('list_matches');
+$matches = $helper->groupByKey($matches);
 
-require JModuleHelper::getLayoutPath('mod_matches');
+require ModuleHelper::getLayoutPath('mod_matches');

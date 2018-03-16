@@ -10,7 +10,7 @@ defined('_JEXEC') or die('Restricted access');
 
 use Joomla\CMS\Factory;
 
-class ModMatchesHelper
+class ModStandingsHelper
 {
 	public function getMatchStandings()
 	{

@@ -6,7 +6,7 @@
 	<copyright>Copyright (C) 2018 | Lodder</copyright>
 	<license>http://www.gnu.org/licenses/gpl-3.0.html</license>
 	<authorEmail>admin@bcsmania.co.uk</authorEmail>
-    <version>1.0</version>
+    <version>1.0.1</version>
     <description>BCS Servers</description>
 
     <files>
@@ -22,7 +22,7 @@
 	
 				<field
 					name="moduleclass_sfx"
-					type="textarea" rows="3"
+					type="text"
 					label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL"
 					description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC" />
 

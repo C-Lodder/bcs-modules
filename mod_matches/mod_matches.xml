@@ -19,7 +19,35 @@
 	<config>
 		<fields name="params">
 			<fieldset name="Basic">
-				
+
+				<field name="list_matches"
+					type="repeatable"
+					icon="list"
+					label="Matches">
+					<fieldset hidden="true" name="list_matches_modal" repeat="true">
+						<field name="opponent"
+							label="Opponent"
+							size="20"
+							type="text" />
+						<field name="date"
+							label="Date"
+							size="10"
+							type="text" />
+						<field name="score"
+							label="Score (BCS)"
+							size="5"
+							type="text" />
+						<field name="score2"
+							label="Score (Opponent)"
+							size="5"
+							type="text" />
+						<field name="winner"
+							label="Winner"
+							size="20"
+							type="text" />
+					</fieldset>
+				</field>
+
 				<field
 					name="moduleclass_sfx"
 					type="textarea"

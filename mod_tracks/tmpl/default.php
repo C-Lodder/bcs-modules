@@ -8,11 +8,15 @@
 
 defined('_JEXEC') or die('Restricted access');
 
-JHtml::_('script', JUri::root() . 'templates/yoo_monday/warp/vendor/uikit/js/components/slider.js', [], ['async' => true]);
+use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Uri\Uri;
 
-$audio = JUri::root() . 'modules/mod_tracks/pussy-cat.mp3';
+HTMLHelper::_('script', Uri::root() . 'templates/yoo_monday/warp/vendor/uikit/js/components/slider.js', [], ['async' => true]);
 
-JFactory::getDocument()->addScriptDeclaration("
+$audio = Uri::root() . 'modules/mod_tracks/pussy-cat.mp3';
+
+Factory::getDocument()->addScriptDeclaration("
 (function() {
 	document.addEventListener('DOMContentLoaded', function() {
 
@@ -30,7 +34,7 @@ JFactory::getDocument()->addScriptDeclaration("
 })();
 ");
 
-JFactory::getDocument()->addStyleDeclaration('
+Factory::getDocument()->addStyleDeclaration('
 	.bcstracks a {
 		display: block;
 	}
@@ -88,8 +92,6 @@ JFactory::getDocument()->addStyleDeclaration('
 			?>
 		</ul>
 	</div>
-
 	<a href="" class="uk-slidenav uk-slidenav-previous" data-uk-slider-item="previous"></a>
 	<a href="" class="uk-slidenav uk-slidenav-next" data-uk-slider-item="next"></a>
-
 </div>

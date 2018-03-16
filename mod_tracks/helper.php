@@ -8,6 +8,8 @@
 
 defined('_JEXEC') or die('Restricted access');
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\Http\HttpFactory;
 use Joomla\Registry\Registry;
 
 class ModBcstracksHelper
@@ -35,7 +37,7 @@ class ModBcstracksHelper
 			'userAgent' => "User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.57 Safari/537.17\r\n"
 		];
 		$options = new Registry($httpOptions);
-		$http    = JHttpFactory::getHttp($options);
+		$http    = HttpFactory::getHttp($options);
 
 		foreach ($this->authors as $author)
 		{
@@ -102,13 +104,11 @@ class ModBcstracksHelper
 	 * @param     boolean  $full      Show the full elapsed time
 	 *
 	 * @return    string   The elapsed time
-	 *
-	 * @adapted from       http://stackoverflow.com/a/18602474/1362108
 	 */
 	public function timeElapsed($datetime, $full = false)
 	{
-		$now  = JFactory::getDate();
-		$ago  = JFactory::getDate($datetime);
+		$now  = Factory::getDate();
+		$ago  = Factory::getDate($datetime);
 		$diff = $now->diff($ago);
 
 		$diff->w = floor($diff->d / 7);

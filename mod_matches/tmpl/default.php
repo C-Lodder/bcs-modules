@@ -23,10 +23,10 @@ defined('_JEXEC') or die('Restricted access');
 		<tbody>
 		<?php foreach ($matches as $match) : ?>
 			<tr>
-				<td>BCS <span class="uk-text-warning">vs</span> TFC</td>
-				<td>27th November 2017</td>
-				<td class="uk-text-success">464 : 86</td>
-				<td class="uk-hidden-small">BCS</td>
+				<td>BCS <span class="uk-text-warning">vs</span> <?php echo $match[0]; ?></td>
+				<td><?php echo $match[1]; ?></td>
+				<td class="uk-text-success"><?php echo $match[2]; ?> : <?php echo $match[3]; ?></td>
+				<td class="uk-hidden-small"><?php echo $match[4]; ?></td>
 			</tr>
 		<?php endforeach; ?>
 		</tbody>

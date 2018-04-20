@@ -22,6 +22,7 @@ class ModMatchesHelper
 				$result[$k][] = $v;
 			}
 		}
-		return $result;
+
+		return array_reverse($result);
 	}
 }

@@ -101,6 +101,41 @@ Factory::getDocument()->addStyleDeclaration('
 	?>
 </div>
 
+<div class="uk-grid">
+	<div class="uk-width-medium-1-3 uk-container-center">
+		<div class="uk-text-center uk-text-bold">
+			<h1 class="uk-article-title uk-margin-top-remove">Server Ranks</h1>
+		</div>
+		<div class="match_box">
+			<ul class="uk-list uk-list-line">
+				<?php
+					$count = 1;
+					foreach ($ranks as $rank)
+					{
+						$class = 'top10';
+						$id = $rank->Id;
+
+						if ($id <= 3)
+						{
+							$class = 'top3';
+						}
+						else if ($id <= 6)
+						{
+							$class = 'top6';
+						}
+
+						echo '<li>';
+						echo '<span class="match_number">' . $id .  '.</span> - ';
+						echo '<span class="' . $class . ' uk-text-bold">[' . $rank->Rank . ']</span> - ';
+						echo '<span class="match_number">' . $cp->toHTML($rank->Player) .  '</span>';
+						echo '</li>';
+					}
+				?>
+			</ul>
+		</div>
+	</div>
+</div>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
 

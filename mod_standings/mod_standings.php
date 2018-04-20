@@ -20,5 +20,6 @@ $cp 	= new TMFColorParser();
 
 // Get the results
 $standings = $helper->getMatchStandings();
+$ranks     = $helper->getServerRanks();
 
 require ModuleHelper::getLayoutPath('mod_standings');

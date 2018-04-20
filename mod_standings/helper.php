@@ -46,4 +46,23 @@ class ModStandingsHelper
 
 		return $return;
 	}
+
+	public function getServerRanks()
+	{
+		$db = JFactory::getDbo();
+
+		$query = $db->getQuery(true)->select(array('*'))
+			->from($db->qn('match_ranks'))
+			->order($db->qn('Id') . ' ASC');
+		$db->setQuery($query);
+
+		$results = $db->loadObjectList();
+		
+		if ($db->getErrorNum())
+		{
+			throw new RuntimeException($db->getErrorMsg(), $db->getErrorNum());
+		}
+
+		return $results;
+	}
 }

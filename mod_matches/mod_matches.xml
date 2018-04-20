@@ -41,10 +41,6 @@
 							label="Score (Opponent)"
 							size="5"
 							type="text" />
-						<field name="winner"
-							label="Winner"
-							size="20"
-							type="text" />
 					</fieldset>
 				</field>
 

@@ -14,15 +14,13 @@ use Joomla\CMS\Factory;
 
 class ModServersHelper
 {
-	public $ajax = false;
-
 	public function getServers($login = null)
 	{
 		$db = Factory::getDbo();
 
-		$query = $db->getQuery(true);
-		$query->select(['*']);
-		$query->from($db->quoteName('servers'));
+		$query = $db->getQuery(true)
+			->select(['*'])
+			->from($db->quoteName('servers'));
 
 		if ($login != '')
 		{
@@ -34,17 +32,16 @@ class ModServersHelper
 		return $db->loadObjectList();
 	}
 
-	public static function getPlayersAjax()
+	public static function getServerDataAjax()
 	{
-		$cp           = new TMFColorParser();
-		$helper       = new ModServersHelper();
-		$helper->ajax = true;
-		$servers      = $helper->getServers();
-		$output       = [];
+		$cp      = new TMFColorParser();
+		$helper  = new ModServersHelper();
+		$servers = $helper->getServers();
+		$output  = [];
 
 		foreach ($servers as $server)
 		{
-			$output[$server->login] = $server;
+			$output[$server->login]             = $server;
 			$output[$server->login]->currentmap = $cp->toHTML($output[$server->login]->currentmap, true);
 			$output[$server->login]->nextmap    = $cp->toHTML($output[$server->login]->nextmap, true);
 		}
@@ -54,13 +51,9 @@ class ModServersHelper
 
 	public static function getPlayersNamesAjax()
 	{
-		$cp = new TMFColorParser();
-		$cp->autoContrastColor('#ffffff');
-
-		$helper       = new ModServersHelper();
-		$helper->ajax = true;
-		$array        = Factory::getApplication()->input->post->getArray([]);
-		$servers      = $helper->getServers($array['data']['server']);
+		$helper  = new ModServersHelper();
+		$array   = Factory::getApplication()->input->post->getArray([]);
+		$servers = $helper->getServers($array['data']['server']);
 
 		$htmlOutput = [];
 
@@ -70,7 +63,7 @@ class ModServersHelper
 
 			foreach ($players as $player)
 			{
-				$htmlOutput[] .= $cp->toHTML($player);
+				$htmlOutput[] = $player;
 			}
 		} 
 
@@ -79,18 +72,21 @@ class ModServersHelper
 
 	public function getPlayers($id)
 	{
+		$cp = new TMFColorParser();
+		$cp->autoContrastColor('#ffffff');
+
 		$players = $this->getPlayersData($id);
 		$rows    = [];
 
 		foreach ($players as $player) 
 		{
-			$rows[] = '<li>' . $player->nickname . '</li>';
+			$rows[] = $cp->toHTML($player->nickname);
 		}
 
 		return $rows;
 	}
 
-	public function getPlayersData($id)
+	private function getPlayersData($id)
 	{
 		$db = Factory::getDbo();
 

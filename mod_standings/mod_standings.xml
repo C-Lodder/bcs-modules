@@ -21,6 +21,11 @@
 			<fieldset name="Basic">
 				
 				<field
+					name="opponent"
+					type="text"
+					label="Opponent" />
+
+				<field
 					name="moduleclass_sfx"
 					type="text"
 					label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL"

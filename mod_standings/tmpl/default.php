@@ -35,7 +35,7 @@ Factory::getDocument()->addStyleDeclaration('
 
 <div id="scores" class="uk-text-center uk-text-bold">
 	<h1 class="uk-article-title uk-margin-top-remove">Standings</h1>
-	<p class="uk-h3 uk-margin-top-remove">BCS (<span class="scoreBCS"></span>)<span class="uk-h4 uk-text-muted uk-display-inline-block uk-margin-small-left uk-margin-small-right">vs</span>Speed (<span class="scoreOther"></span>)</p>
+	<p class="uk-h3 uk-margin-top-remove">BCS (<span class="scoreBCS"></span>)<span class="uk-h4 uk-text-muted uk-display-inline-block uk-margin-small-left uk-margin-small-right">vs</span><?php echo $params->get('opponent'); ?> (<span class="scoreOther"></span>)</p>
 </div>
 
 <div class="uk-grid uk-grid-small" data-uk-grid-margin>
@@ -65,7 +65,7 @@ Factory::getDocument()->addStyleDeclaration('
 						$class = 'top6';
 					}
 
-					// Strip tags and check for 'вcs' in name
+					// Strip tags and check for 'bcs' in name
 					$bcs = '';
 					$nickname = $cp->toHTML($v['NickName']);
 					if ((strpos(strip_tags($nickname), '|') !== false) && (strpos(strip_tags($nickname), 'bcs') !== false))

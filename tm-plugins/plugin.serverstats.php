@@ -1,57 +1,39 @@
 <?php
-/*
- * Plugin: PLUGIN_NAME
- * ~~~~~~~~~~~~~~~~~~~
- * » PLUGIN_DESCRIPTION
- *
- * ----------------------------------------------------------------------------------
- *
- * LICENSE: This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- * ----------------------------------------------------------------------------------
- *
+/**
+ * @copyright Alphaleon
  */
 
-// Start the plugin
 $_PLUGIN = new PluginServerstats();
 
 class PluginServerstats extends Plugin
 {
-    public $config = [
-        'url' => 'https://bcsmania.co.uk/statscrawler.php' 
-    ];
+	public $config = [
+		'url' => 'https://bcsmania.co.uk/statscrawler.php' 
+	];
 
-    public function __construct()
+	public function __construct()
 	{
-        // Describe the Plugin
-        $this->setVersion('1.0');
-        $this->setBuild('1.0');
-        $this->setAuthor('Alpha');
-        $this->setCopyright('none');
-        $this->setDescription('none');
+		// Describe the Plugin
+		$this->setVersion('1.0');
+		$this->setBuild('1.0');
+		$this->setAuthor('Alpha');
+		$this->setCopyright('none');
+		$this->setDescription('none');
 
-        // Register events to interact on
-        $this->registerEvent('onPlayerConnect', 'syncStats');
-        $this->registerEvent('onPlayerDisconnect', 'syncStats');
+		// Register events to interact on
+		$this->registerEvent('onPlayerConnect', 'syncStats');
+		$this->registerEvent('onPlayerDisconnect', 'syncStats');
 		$this->registerEvent('onBeginMap', 'syncStats');
-    }
+	}
 
-    public function syncStats($aseco, $player)
+	public function syncStats($aseco, $player)
 	{
 		$players = [];
 		$server  = [];
 		$maps    = [];
+
+		$asecoServer = $aseco->server;
+		$asecoClient = $aseco->client;
 
 		// Collect players
 		foreach ($aseco->server->players->player_list as $player)
@@ -63,30 +45,29 @@ class PluginServerstats extends Plugin
 		}
 
 		// Get current server information
-		$server['login']    = $aseco->server->login;
-		$server['title']    = $aseco->server->title;
-		$server['nickname'] = $aseco->server->name;
-
-		$server['ladder_min']  = $aseco->server->ladder_limit_min;
-		$server['ladder_max']  = $aseco->server->ladder_limit_max;
+		$server['login']       = $asecoServer->login;
+		$server['title']       = $asecoServer->title;
+		$server['nickname']    = $asecoServer->name;
+		$server['ladder_min']  = $asecoServer->ladder_limit_min;
+		$server['ladder_max']  = $asecoServer->ladder_limit_max;
 		$server['playercount'] = count($players);
-		$server['maxplayers']  = $aseco->server->options['CurrentMaxPlayers'];
+		$server['maxplayers']  = $asecoServer->options['CurrentMaxPlayers'];
 
-		$next_index = $aseco->client->query("GetNextMapIndex");
+		$next_index = $asecoClient->query("GetNextMapIndex");
 		// Do GetChallengeList and send it the next index, this way you avoid looping through data to find the right one later
-		$nextchallenge = $aseco->client->query("GetMapList", 1, $next_index);
+		$nextchallenge = $asecoClient->query("GetMapList", 1, $next_index);
 
-		$next_index = $aseco->client->query("GetCurrentMapIndex");
+		$next_index = $asecoClient->query("GetCurrentMapIndex");
 		// Do GetChallengeList and send it the next index, this way you avoid looping through data to find the right one later
-		$currentchallenge = $aseco->client->query("GetMapList", 1, $next_index);
+		$currentchallenge = $asecoClient->query("GetMapList", 1, $next_index);
 
 		$maps[] = $currentchallenge;
 		$maps[] = $nextchallenge;
 
 		$stats = [
-		  'server' => $server,
-		  'players' => $players,
-		  'maps' => $maps,
+			'server'  => $server,
+			'players' => $players,
+			'maps'    => $maps,
 		];
 
 		$curl = curl_init($this->config['url']);
@@ -102,6 +83,6 @@ class PluginServerstats extends Plugin
 
 		curl_close($curl);
 
-		$aseco->console('synced');
-    }
+		$aseco->console('Server stats have been synced');
+	}
 }

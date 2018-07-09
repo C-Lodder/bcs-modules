@@ -7,7 +7,7 @@
 	<license>http://www.gnu.org/licenses/gpl-3.0.html</license>
 	<authorEmail>admin@bcsmania.co.uk</authorEmail>
     <version>1.0.0</version>
-    <description>BCS Members</description>
+    <description>BCSMEMBERS_DESCRIPTION</description>
 
     <files>
         <filename module="mod_members">mod_members.php</filename>
@@ -15,5 +15,10 @@
         <filename>index.html</filename>
 		<folder>tmpl</folder>
     </files>
+
+	<languages>
+		<language tag="en-GB">language/en-GB/en-GB.mod_members.ini</language>
+		<language tag="en-GB">language/en-GB/en-GB.mod_members.sys.ini</language>
+	</languages>
 
 </extension>

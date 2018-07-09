@@ -16,6 +16,6 @@ use Joomla\CMS\Helper\ModuleHelper;
 $helper = new ModMembersHelper;
 
 // Get the results
-$members = $helper->getMembersList(9);
+$members = $helper->getMembersList();
 
 require ModuleHelper::getLayoutPath('mod_members');

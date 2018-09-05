@@ -68,7 +68,7 @@ Factory::getDocument()->addStyleDeclaration('
 					// Strip tags and check for 'bcs' in name
 					$bcs = '';
 					$nickname = $cp->toHTML($v['NickName']);
-					if ((strpos(strip_tags($nickname), '|') !== false) && (strpos(strip_tags($nickname), 'bcs') !== false))
+					if (strpos(strip_tags($nickname), 'bcs') !== false)
 					{
 						$bcs = 'bcs';
 					}

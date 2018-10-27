@@ -84,6 +84,7 @@ $showPrivateServer = false;
 
 			var itemId   = <?php echo $Itemid ? $Itemid : 'null'; ?>;
 			var refresh  = '<?php echo $refresh; ?>';
+			var isAdmin  = '<?php echo $isAdmin; ?>';
 			var instance = document.getElementById('tm_server');
 			var spinners = instance.querySelectorAll('.spinner');
 
@@ -183,7 +184,8 @@ $showPrivateServer = false;
 								var results = response.data;
 								for (var l = 0; l < results.length; l++)
 								{
-									var listItem = '<li>' + results[l] + '</li>';
+									var login = isAdmin == 1 ? ' <span class="text-muted text-small">(' + results[l].login + ')</span>' : '';
+									var listItem = '<li>' + results[l].nickname + login + '</li>';
 									playerList.insertAdjacentHTML('beforeend', listItem);
 								}
 							}

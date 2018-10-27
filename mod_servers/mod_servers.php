@@ -23,7 +23,8 @@ $title 	= $module->title;
 $private = $params->get('private', 0);
 $refresh = $params->get('refresh', 10) * 1000;
 
-$user = Factory::getUser();
+$user    = Factory::getUser();
+$isAdmin = $user->authorise('core.admin');
 
 $helper = new ModServersHelper;
 $cp 	= new TMFColorParser();

@@ -77,10 +77,14 @@ class ModServersHelper
 
 		$players = $this->getPlayersData($id);
 		$rows    = [];
+		$count   = 0;
 
 		foreach ($players as $player) 
 		{
-			$rows[] = $cp->toHTML($player->nickname);
+			$rows[$count]['nickname'] = $cp->toHTML($player->nickname);
+			$rows[$count]['login']    = $player->login;
+
+			$count++;
 		}
 
 		return $rows;

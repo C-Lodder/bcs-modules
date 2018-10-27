@@ -21,6 +21,7 @@ $Itemid = is_null($active) ? null : $active->id;
 $title 	= $module->title;
 
 $private = $params->get('private', 0);
+$refresh = $params->get('refresh', 10) * 1000;
 
 $user = Factory::getUser();
 

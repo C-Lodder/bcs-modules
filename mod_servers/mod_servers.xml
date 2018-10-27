@@ -27,9 +27,15 @@
 					description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC" />
 
 				<field
+					name="refresh"
+					type="text"
+					label="Refresh time (seconds)"
+					default="10" />
+
+				<field
 					name="private"
 					type="radio"
-					class="btn group btn-group-yes-no"
+					class="btn-group btn-group-yes-no"
 					label="Private Server"
 					default="0"
 					>

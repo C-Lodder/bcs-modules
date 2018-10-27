@@ -20,6 +20,8 @@ $active = $app->getMenu()->getActive();
 $Itemid = is_null($active) ? null : $active->id;
 $title 	= $module->title;
 
+$private = $params->get('private', 0);
+
 $user = Factory::getUser();
 
 $helper = new ModServersHelper;

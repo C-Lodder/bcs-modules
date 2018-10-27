@@ -26,6 +26,17 @@
 					label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL"
 					description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC" />
 
+				<field
+					name="private"
+					type="radio"
+					class="btn group btn-group-yes-no"
+					label="Private Server"
+					default="0"
+					>
+					<option value="0">JHIDE</option>
+					<option value="1">JSHOW</option>
+				</field>
+
 			</fieldset>
 
 		</fields>

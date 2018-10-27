@@ -25,16 +25,18 @@ $showPrivateServer = false;
 	<tbody>
 		<?php foreach ($servers as $server) : ?>
 			<?php
-				$id       = $server->id;
-				$login    = $server->login;
-				$nickname = $cp->toHTML($server->nickname);
-				$current  = isset($server->currentmap) ? $server->currentmap : '';
-				$next     = isset($server->nextmap) ? $server->nextmap : '';
-				$players  = $helper->getPlayers($id);
+				$login = $server->login;
 			?>
-			<?php if ($login === 'bcseslspeed') : ?>
-				<?php echo ''; ?>
+			<?php if ($login === 'bcseslspeed' || ($private == 0 && $login === 'bcsrace')) : ?>
+				<?php continue; ?>
 			<?php else : ?>
+				<?php
+					$id       = $server->id;
+					$nickname = $cp->toHTML($server->nickname);
+					$current  = isset($server->currentmap) ? $server->currentmap : '';
+					$next     = isset($server->nextmap) ? $server->nextmap : '';
+					$players  = $helper->getPlayers($id);
+				?>
 				<tr>
 					<td>
 						<?php echo $nickname; ?>

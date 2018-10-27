@@ -83,6 +83,7 @@ $showPrivateServer = false;
 		document.addEventListener('DOMContentLoaded', function() {
 
 			var itemId   = <?php echo $Itemid ? $Itemid : 'null'; ?>;
+			var refresh  = '<?php echo $refresh; ?>';
 			var instance = document.getElementById('tm_server');
 			var spinners = instance.querySelectorAll('.spinner');
 
@@ -212,7 +213,7 @@ $showPrivateServer = false;
 			{
 				var itemId = '<?php echo $Itemid; ?>';
 				getServerData(itemId, instance);
-			}, 10000);
+			}, refresh);
 			<?php endif; ?>
 
 		});

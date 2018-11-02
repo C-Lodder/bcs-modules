@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="3.8" client="site" method="upgrade">
+    <name>BCS Info</name>
+    <author>Lodder</author>
+	<creationDate>2nd November 2018</creationDate>
+	<copyright>Copyright (C) 2018 | Lodder</copyright>
+	<license>http://www.gnu.org/licenses/gpl-3.0.html</license>
+	<authorEmail>admin@bcsmania.co.uk</authorEmail>
+    <version>1.0.0</version>
+    <description>BCSMEMBERS_DESCRIPTION</description>
+
+    <files>
+        <filename module="mod_bcsinfo">mod_bcsinfo.php</filename>
+        <filename>index.html</filename>
+		<folder>tmpl</folder>
+    </files>
+
+	<config>
+		<fields name="params">
+			<fieldset name="Basic">
+
+				<field
+					name="tags"
+					type="text"
+					label="BCS Tags" />
+
+				<field
+					name="password"
+					type="text"
+					label="Team Server Password" />
+
+			</fieldset>
+
+		</fields>
+	</config>
+
+</extension>

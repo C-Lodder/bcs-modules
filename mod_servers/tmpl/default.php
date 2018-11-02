@@ -184,7 +184,7 @@ $showPrivateServer = false;
 								var results = response.data;
 								for (var l = 0; l < results.length; l++)
 								{
-									var login = isAdmin == 1 ? ' <span class="text-muted text-small">(' + results[l].login + ')</span>' : '';
+									var login = isAdmin == 1 ? ' <span class="uk-text-muted uk-text-small">(' + results[l].login + ')</span>' : '';
 									var listItem = '<li>' + results[l].nickname + login + '</li>';
 									playerList.insertAdjacentHTML('beforeend', listItem);
 								}

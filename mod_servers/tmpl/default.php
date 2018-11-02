@@ -8,8 +8,6 @@
 
 defined('_JEXEC') or die('Restricted access');
 
-$showPrivateServer = false;
-
 ?>
 
 <table id="tm_server" class="uk-table">

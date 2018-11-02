@@ -13,4 +13,4 @@ use Joomla\CMS\Helper\ModuleHelper;
 $tags     = $params->get('tags');
 $password = $params->get('password');
 
-require ModuleHelper::getLayoutPath('mod_members');
+require ModuleHelper::getLayoutPath('mod_bcsinfo');

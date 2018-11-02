@@ -10,8 +10,11 @@ defined('_JEXEC') or die('Restricted access');
 
 use Joomla\CMS\Factory;
 
-Factory::addStyleDeclaration('
-	.bcsinfo-button {
+Factory::getDocument()->addStyleDeclaration('
+	.tm-footer .uk-modal {
+		color: #323946;
+	}
+	.tm-footer .bcsinfo-button {
 		position: fixed;
 		top: 0;
 		right: 0;
@@ -25,16 +28,20 @@ Factory::addStyleDeclaration('
 		border-radius: 0;
 		box-shadow: none;
 	}
+	.tm-footer .bcsinfo-button:hover,
+	.tm-footer .bcsinfo-button:focus {
+		color: #323946;
+	}
 ')
 ?>
 
 <a href="#bcsinfo-modal" data-uk-modal="{center:true}" class="uk-button bcsinfo-button"><span class="uk-icon uk-icon-info-circle"></span></a>
 
 <div id="bcsinfo-modal" class="uk-modal">
-    <div class="uk-modal-dialog">
+	<div class="uk-modal-dialog">
 		<a class="uk-modal-close uk-close"></a>
-        <div class="uk-modal-header">BCS Info</div>
-        <table class="uk-table uk-table-striped">
+		<h4 class="uk-modal-header uk-margin-top-remove">BCS Info</h4>
+		<table class="uk-table uk-table-striped">
 			<tr>
 				<td>BCS Tags</td>
 				<td><?php echo $tags; ?></td>
@@ -44,5 +51,5 @@ Factory::addStyleDeclaration('
 				<td><?php echo $password; ?></td>
 			</tr>
 		</table>
-    </div>
+	</div>
 </div>

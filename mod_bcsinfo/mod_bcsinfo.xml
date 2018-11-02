@@ -7,7 +7,7 @@
 	<license>http://www.gnu.org/licenses/gpl-3.0.html</license>
 	<authorEmail>admin@bcsmania.co.uk</authorEmail>
     <version>1.0.0</version>
-    <description>BCSMEMBERS_DESCRIPTION</description>
+    <description>BCS Related Information</description>
 
     <files>
         <filename module="mod_bcsinfo">mod_bcsinfo.php</filename>

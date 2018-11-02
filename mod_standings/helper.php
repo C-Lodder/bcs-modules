@@ -49,7 +49,7 @@ class ModStandingsHelper
 
 	public function getServerRanks()
 	{
-		$db = JFactory::getDbo();
+		$db = Factory::getDbo();
 
 		$query = $db->getQuery(true)->select(array('*'))
 			->from($db->qn('match_ranks'))
@@ -64,5 +64,40 @@ class ModStandingsHelper
 		}
 
 		return $results;
+	}
+
+	public function formatTime($MwTime, $tsec = true)
+	{
+		if ($MwTime > 0)
+		{
+			$tseconds = strlen($MwTime) > 3 ? substr($MwTime, strlen($MwTime) - 3) : $MwTime;
+			$MwTime   = floor($MwTime / 1000);
+			$hours    = floor($MwTime / 3600);
+			$MwTime   = $MwTime - ($hours * 3600);
+			$minutes  = floor($MwTime / 60);
+			$MwTime   = $MwTime - ($minutes * 60);
+			$seconds  = floor($MwTime);
+
+			if ($tsec)
+			{
+				if ($hours)
+				{
+					return sprintf('%d:%02d:%02d.%03d', $hours, $minutes, $seconds, $tseconds);
+				}
+
+				return sprintf('%d:%02d.%03d', $minutes, $seconds, $tseconds);
+			}
+			else
+			{
+				if ($hours)
+				{
+					return sprintf('%d:%02d:%02d', $hours, $minutes, $seconds);
+				}
+
+				return sprintf('%d:%02d', $minutes, $seconds);
+			}
+		}
+
+		return '0:00:000';
 	}
 }

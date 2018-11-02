@@ -48,6 +48,11 @@ Factory::getDocument()->addStyleDeclaration('
 		font-style: italic;
 		color: #111;
 	}
+	.bcstracks .magnet {
+		display: block;
+		font-size: 12px;
+		color: #f00;
+	}
 	.bcstracks img {
 		margin-bottom: 5px;
 	}
@@ -84,6 +89,22 @@ Factory::getDocument()->addStyleDeclaration('
 					$html .= '</a>';
 					$html .= '<div class="by">by ' . $cp->toHTML($track['Username']) . '</div>';
 					$html .= '<div class="by">Uploaded ' . $track['UploadedAt'] . '</div>';
+					
+					$objects = $track['objects'];
+					$hasMagnet = false;
+
+					foreach ($objects as $object)
+					{
+						if (strpos($object->ObjectPath, 'Magnet') !== false) {
+							$hasMagnet = true;
+						}
+					}
+
+					if ($hasMagnet) {
+						$html .= '<div class="magnet"><strong>WARNING</strong>: Contains magnetic blocks!</div>';
+					}
+					
+					
 					$html .= '</li>';
 					echo $html;
 				}

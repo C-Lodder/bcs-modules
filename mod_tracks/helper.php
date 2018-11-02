@@ -24,6 +24,7 @@ class ModBcstracksHelper
 		$this->authors = explode(',', $authors);
 		$this->baseurl = 'https://tm.mania-exchange.com/tracksearch2/search?api=on&mode=2&authorid=';
 		$this->imgurl  = 'https://tm.mania-exchange.com/tracks/thumbnail/';
+		$this->objects = 'https://api.mania-exchange.com/tm/tracks/embeddedobjects/';
 	}
 
 	/**
@@ -54,6 +55,24 @@ class ModBcstracksHelper
 
 		return $this->extractData($results);
 	}
+	
+	/**
+	 *  Get the track objects
+	 */
+	private function getTrackObjects($id)
+	{
+		$httpOptions = [
+			'userAgent' => "User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.57 Safari/537.17\r\n"
+		];
+		$options = new Registry($httpOptions);
+		$http    = HttpFactory::getHttp($options);
+
+
+		$httpResult = $http->get($this->objects . $id);
+		$json       = json_decode($httpResult->body);
+		
+		return $json;
+	}
 
 	/**
 	 *  Get the thumbnail extracted from the track
@@ -82,6 +101,7 @@ class ModBcstracksHelper
 			$track[$trackId]['GbxMapName'] = $result->GbxMapName;
 			$track[$trackId]['UploadedAt'] = $this->timeElapsed($result->UploadedAt);
 			$track[$trackId]['screenshot'] = $this->getTrackImage($trackId);
+			$track[$trackId]['objects']    = $this->getTrackObjects($trackId);
 		}
 
 		return $this->sortArray($track);

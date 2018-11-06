@@ -17,7 +17,7 @@ use Joomla\CMS\Helper\ModuleHelper;
 
 class ModTracksHelper
 {
-	private static $baseurl = 'https://tm.mania-exchange.com/tracksearch2/search?api=on&mode=2&limit=20&authorid=';
+	private static $baseurl = 'https://tm.mania-exchange.com/tracksearch2/search?api=on&mode=2&limit=20&priord=2&authorid=';
 
 	/**
 	 *  The contructor
@@ -119,13 +119,14 @@ class ModTracksHelper
 		{
 			$result  = $val->results[0];
 			$trackId = $result->TrackID;
+			$time    = $result->UploadedAt;
 
-			$tracks[$trackId]['TrackID']    = $trackId;
-			$tracks[$trackId]['Username']   = $cp->toHTML($result->Username);
-			$tracks[$trackId]['GbxMapName'] = $cp->toHTML($result->GbxMapName);
-			$tracks[$trackId]['UploadedAt'] = $this->timeElapsed($result->UploadedAt);
-			$tracks[$trackId]['screenshot'] = $this->getTrackImage($trackId);
-			$tracks[$trackId]['magnets']    = $this->checkMagnets($trackId);
+			$tracks[$time]['TrackID']    = $trackId;
+			$tracks[$time]['Username']   = $cp->toHTML($result->Username);
+			$tracks[$time]['GbxMapName'] = $cp->toHTML($result->GbxMapName);
+			$tracks[$time]['UploadedAt'] = $this->timeElapsed($time);
+			$tracks[$time]['screenshot'] = $this->getTrackImage($trackId);
+			$tracks[$time]['magnets']    = $this->checkMagnets($trackId);
 		}
 
 		return $this->sortArray($tracks);

@@ -11,21 +11,9 @@ defined('_JEXEC') or die('Restricted access');
 use Joomla\CMS\Factory;
 use Joomla\CMS\Helper\ModuleHelper;
 
-\JLoader::register('ModBcstracksHelper', __DIR__ . '/helper.php');
-\JLoader::register('TMFColorParser', JPATH_BASE . '/tmfcolorparser.php');
+\JLoader::register('ModTracksHelper', __DIR__ . '/helper.php');
 
-// Initiate helper class
-$authors = $params->get('authors', '');
-$helper  = new ModBcstracksHelper($authors);
-
-// Get tracks and cache the results
-$cache = Factory::getCache();
-$cache->setCaching(1);
-$cache->setLifeTime(360);
-$tracks = $cache->call([$helper, 'getAuthorTracks']);
-
-// Color parser
-$cp = new TMFColorParser();
-$cp->replaceHex('#ffffff', '#aaaaaa');
+$active = Factory::getApplication()->getMenu()->getActive();
+$Itemid = is_null($active) ? null : $active->id;
 
 require ModuleHelper::getLayoutPath('mod_tracks');

@@ -11,18 +11,19 @@ defined('_JEXEC') or die('Restricted access');
 use Joomla\CMS\Factory;
 use Joomla\CMS\Http\HttpFactory;
 use Joomla\Registry\Registry;
+use Joomla\CMS\Helper\ModuleHelper;
 
-class ModBcstracksHelper
+\JLoader::register('TMFColorParser', JPATH_BASE . '/tmfcolorparser.php');
+
+class ModTracksHelper
 {
-	public $authors = null;
+	private static $baseurl = 'https://tm.mania-exchange.com/tracksearch2/search?api=on&mode=2&limit=20&authorid=';
 
 	/**
 	 *  The contructor
 	 */
-	public function __construct($authors)
+	public function __construct()
 	{
-		$this->authors = explode(',', $authors);
-		$this->baseurl = 'https://tm.mania-exchange.com/tracksearch2/search?api=on&mode=2&authorid=';
 		$this->imgurl  = 'https://tm.mania-exchange.com/tracks/thumbnail/';
 		$this->objects = 'https://api.mania-exchange.com/tm/tracks/embeddedobjects/';
 	}
@@ -30,19 +31,21 @@ class ModBcstracksHelper
 	/**
 	 *  Get a JSON object or the tracks by the defined author ID's
 	 */
-	public function getAuthorTracks()
+	public static function getAuthorTracksAjax()
 	{
-		$results = [];
+		$helper  = new ModTracksHelper;
+		$authors = explode(',', $helper->getParams()->get('authors'));
 
+		$results = [];
 		$httpOptions = [
 			'userAgent' => "User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.57 Safari/537.17\r\n"
 		];
 		$options = new Registry($httpOptions);
 		$http    = HttpFactory::getHttp($options);
 
-		foreach ($this->authors as $author)
+		foreach ($authors as $author)
 		{
-			$httpResult = $http->get($this->baseurl . $author);
+			$httpResult = $http->get(self::$baseurl . $author);
 			$json       = json_decode($httpResult->body);
 
 			if ($json->totalItemCount === 0)
@@ -53,25 +56,43 @@ class ModBcstracksHelper
 			$results[] = $json;
 		}
 
-		return $this->extractData($results);
+		return $helper->extractData($results);
+	}
+
+	private function getParams()
+	{
+		$module = ModuleHelper::getModule('mod_tracks');
+		$moduleParams = new Registry;
+
+		// When using the preview feature when no module params have been saved we get an
+		// empty string back from ModuleHelper::getModule for the params which is obviously
+		// not valid json and as a result Registry blows up.
+		if ($module->params !== '')
+		{
+			$moduleParams->loadString($module->params);
+		}
+
+		return $moduleParams;
 	}
 	
 	/**
-	 *  Get the track objects
+	 *  Get the track objects and detect if it contains any magnetic blocks
 	 */
-	private function getTrackObjects($id)
+	private function checkMagnets($id)
 	{
 		$httpOptions = [
 			'userAgent' => "User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.57 Safari/537.17\r\n"
 		];
-		$options = new Registry($httpOptions);
-		$http    = HttpFactory::getHttp($options);
-
-
+		$options    = new Registry($httpOptions);
+		$http       = HttpFactory::getHttp($options);
 		$httpResult = $http->get($this->objects . $id);
-		$json       = json_decode($httpResult->body);
-		
-		return $json;
+
+		if (strpos($httpResult->body, 'Magnet') !== false)
+		{
+			return true;
+		}
+
+		return false;
 	}
 
 	/**
@@ -89,22 +110,25 @@ class ModBcstracksHelper
 	 */
 	private function extractData($results)
 	{
-		$track = [];
+		$cp = new TMFColorParser();
+		$cp->replaceHex('#ffffff', '#aaaaaa');
+
+		$tracks = [];
 
 		foreach ($results as $key => $val)
 		{
 			$result  = $val->results[0];
 			$trackId = $result->TrackID;
 
-			$track[$trackId]['TrackID']    = $trackId;
-			$track[$trackId]['Username']   = $result->Username;
-			$track[$trackId]['GbxMapName'] = $result->GbxMapName;
-			$track[$trackId]['UploadedAt'] = $this->timeElapsed($result->UploadedAt);
-			$track[$trackId]['screenshot'] = $this->getTrackImage($trackId);
-			$track[$trackId]['objects']    = $this->getTrackObjects($trackId);
+			$tracks[$trackId]['TrackID']    = $trackId;
+			$tracks[$trackId]['Username']   = $cp->toHTML($result->Username);
+			$tracks[$trackId]['GbxMapName'] = $cp->toHTML($result->GbxMapName);
+			$tracks[$trackId]['UploadedAt'] = $this->timeElapsed($result->UploadedAt);
+			$tracks[$trackId]['screenshot'] = $this->getTrackImage($trackId);
+			$tracks[$trackId]['magnets']    = $this->checkMagnets($trackId);
 		}
 
-		return $this->sortArray($track);
+		return $this->sortArray($tracks);
 	}
 
 	/**
@@ -125,7 +149,7 @@ class ModBcstracksHelper
 	 *
 	 * @return    string   The elapsed time
 	 */
-	public function timeElapsed($datetime, $full = false)
+	private function timeElapsed($datetime, $full = false)
 	{
 		$now  = Factory::getDate();
 		$ago  = Factory::getDate($datetime);

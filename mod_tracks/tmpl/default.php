@@ -23,8 +23,7 @@ Factory::getDocument()->addScriptDeclaration("
 		var bcstracks = document.getElementById('bcstracks'),
 		    buttons   = bcstracks.querySelectorAll('.uk-slidenav');
 
-		for (var i = 0; i < buttons.length; i++)
-		{
+		for (var i = 0; i < buttons.length; i++) {
 			buttons[i].addEventListener('click', function(event) {
 				var audio = new Audio('" . $audio . "');
 				audio.play();
@@ -69,50 +68,114 @@ Factory::getDocument()->addStyleDeclaration('
 	.uk-slidenav-position .uk-slidenav:focus {
 		color: #222;
 	}
+
+	.placeholder > div {
+		background: #eeeded;
+		width: 266px;
+		height: 220px;
+		text-align: center;
+	}
+	.placeholder .uk-icon-spinner {
+		font-size: 35px;
+	}
 ');
 ?>
 
-<div id="bcstracks" class="uk-slidenav-position bcstracks" data-uk-slider="{infinite:false}">
+<div id="bcstracks" class="uk-slidenav-position bcstracks" data-uk-slider="{infinite: false}">
 	<div class="uk-slider-container">
-		<ul class="uk-slider uk-grid uk-grid-width-medium-1-4 uk-grid-medium">
-			<?php
-			$i = 0;
-
-			foreach ($tracks as $track)
-			{
-				if ($i < 9)
-				{
-					$html  = '<li>';
-					$html .= '<a href="https://tm.mania-exchange.com/tracks/' . $track['TrackID'] . '" target="_blank">';
-					$html .= '<img src="' . $track['screenshot'] . '" alt="">';
-					$html .= $cp->toHTML($track['GbxMapName']);
-					$html .= '</a>';
-					$html .= '<div class="by">by ' . $cp->toHTML($track['Username']) . '</div>';
-					$html .= '<div class="by">Uploaded ' . $track['UploadedAt'] . '</div>';
-					
-					$objects = $track['objects'];
-					$hasMagnet = false;
-
-					foreach ($objects as $object)
-					{
-						if (strpos($object->ObjectPath, 'Magnet') !== false) {
-							$hasMagnet = true;
-						}
-					}
-
-					if ($hasMagnet) {
-						$html .= '<div class="magnet"><strong>WARNING</strong>: Contains magnetic blocks!</div>';
-					}
-					
-					
-					$html .= '</li>';
-					echo $html;
-				}
-				$i++;
-			}
-			?>
+		<ul id="bcstracks-slider" class="uk-slider uk-grid uk-grid-width-medium-1-4 uk-grid-medium">
+			<li class="placeholder">
+				<div class="uk-flex uk-flex-middle uk-flex-center"><span class="uk-icon-spinner uk-icon-spin" aria-hidden="true"></span></div>
+			</li>
+			<li class="placeholder">
+				<div class="uk-flex uk-flex-middle uk-flex-center"><span class="uk-icon-spinner uk-icon-spin" aria-hidden="true"></span></div>
+			</li>
+			<li class="placeholder">
+				<div class="uk-flex uk-flex-middle uk-flex-center"><span class="uk-icon-spinner uk-icon-spin" aria-hidden="true"></span></div>
+			</li>
+			<li class="placeholder">
+				<div class="uk-flex uk-flex-middle uk-flex-center"><span class="uk-icon-spinner uk-icon-spin" aria-hidden="true"></span></div>
+			</li>
 		</ul>
 	</div>
 	<a href="" class="uk-slidenav uk-slidenav-previous" data-uk-slider-item="previous"></a>
 	<a href="" class="uk-slidenav uk-slidenav-next" data-uk-slider-item="next"></a>
 </div>
+
+<script>
+	(function() {
+		'use strict';
+
+		document.addEventListener('DOMContentLoaded', function() {
+
+			// Assemble variables to submit
+			var itemId = '<?php echo $Itemid; ?>';
+			var request = {
+				option : 'com_ajax',
+				module : 'tracks',
+				method : 'getAuthorTracks',
+				format : 'json',
+			};
+
+			// If there is an active menu item then we need to add it to the request.
+			if (itemId !== null) {
+				request['Itemid'] = itemId;
+			}
+
+			// AJAX request
+			jQuery.ajax({
+				type: 'POST',
+				data: request,
+				success: function(response) {
+					if (response.success) {
+						var wrapper = document.getElementById('bcstracks-slider');
+						wrapper.innerHTML = '';
+
+						Object.keys(response.data).forEach(function(key) {
+							var obj = response.data[key];
+							var list = document.createElement('li');
+
+							var anchor = document.createElement('a');
+							anchor.setAttribute('href', 'https://tm.mania-exchange.com/tracks/' + obj.TrackID);
+							anchor.setAttribute('target', '_blank');
+
+							var span = document.createElement('span');
+							span.innerHTML = obj.GbxMapName;
+
+							var by = document.createElement('div');
+							by.classList.add('by');
+							by.innerHTML = 'by ' + obj.Username;
+
+							var by2 = document.createElement('div');
+							by2.classList.add('by');
+							by2.innerText = 'Uploaded ' + obj.UploadedAt;
+
+							var img = new Image;
+							img.addEventListener('load', function() {
+								anchor.appendChild(img);
+								anchor.appendChild(span);
+							}, false);
+							img.src = obj.screenshot;
+
+							list.appendChild(anchor);
+							list.appendChild(by);
+							list.appendChild(by2);
+
+							if (obj.magnets) {
+								var magnet = document.createElement('div');
+								magnet.classList.add('magnet');
+								magnet.innerHTML = '<strong>WARNING</strong>: Contains magnetic blocks!';
+								list.appendChild(magnet);
+							}
+
+							wrapper.appendChild(list);
+						});
+
+						var height = wrapper.querySelector('li').height;
+						wrapper.style.minHeight = height + 'px';
+					}
+				}
+			});
+		});
+	})();
+</script>

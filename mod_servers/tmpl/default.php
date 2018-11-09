@@ -8,6 +8,7 @@
 
 defined('_JEXEC') or die('Restricted access');
 
+$img = JUri::root() . 'modules/mod_servers/maniaplanet.png';
 ?>
 
 <table id="tm_server" class="uk-table">
@@ -36,15 +37,15 @@ defined('_JEXEC') or die('Restricted access');
 					$players  = $helper->getPlayers($id);
 				?>
 				<tr>
-					<td>
+					<td class="spinner">
 						<?php echo $nickname; ?>
 						<?php if ($login === 'bcsrace') :  ?>
 							<span class="uk-icon-lock" aria-hidden="true"></span>
 						<?php endif; ?>
 					</td>
-					<td class="update"><span class="spinner count_<?php echo $id; ?>"><?php echo $server->playercount; ?></span> / <?php echo $server->maxplayers; ?></td>
-					<td class="update uk-hidden-small"><span class="spinner currentmap_<?php echo $id; ?>"><?php echo $cp->toHTML($current, true); ?></span></td>
-					<td class="update uk-visible-large"><span class="spinner nextmap_<?php echo $id; ?>"><?php echo $cp->toHTML($next, true); ?></span></td>
+					<td><span id="count_<?php echo $id; ?>"><?php echo $server->playercount; ?></span> / <?php echo $server->maxplayers; ?></td>
+					<td class="uk-hidden-small"><span id="currentmap_<?php echo $id; ?>"><?php echo $cp->toHTML($current, true); ?></span></td>
+					<td class="uk-visible-large"><span id="nextmap_<?php echo $id; ?>"><?php echo $cp->toHTML($next, true); ?></span></td>
 					<td class="uk-hidden-small server-actions">
 						<a class="uk-icon-users" href="#<?php echo $login; ?>" class="<?php echo $login; ?>" data-uk-modal data-uk-tooltip title="Players"></a>	
 						<a class="uk-icon-sign-in" href="maniaplanet://#join=<?php echo $login . '@' . $server->title; ?>" target="_blank" data-uk-tooltip title="Join"></a>
@@ -85,9 +86,23 @@ defined('_JEXEC') or die('Restricted access');
 			var isAdmin  = '<?php echo $isAdmin; ?>';
 			var instance = document.getElementById('tm_server');
 			var spinners = instance.querySelectorAll('.spinner');
+			var players  = {};
 
-			function getServerData(itemId, instance)
-			{
+			function notify(server) {
+				if ('Notification' in window) {
+					// Let's check whether notification permissions have already been granted
+					if (Notification.permission === 'granted') {
+						// If it's okay let's create a notification
+						var options = {
+							body: 'New player joined ' + server,
+							icon: '<?php echo $img; ?>'
+						};
+						var notification = new Notification('New Player!', options);
+					}
+				}
+			}
+
+			function getServerData(itemId, instance) {
 				// Assemble variables to submit
 				var request = {
 					option : 'com_ajax',
@@ -97,8 +112,7 @@ defined('_JEXEC') or die('Restricted access');
 				};
 
 				// If there is an active menu item then we need to add it to the request.
-				if (itemId !== null)
-				{
+				if (itemId !== null) {
 					request['Itemid'] = itemId;
 				}
 
@@ -106,37 +120,55 @@ defined('_JEXEC') or die('Restricted access');
 				jQuery.ajax({
 					type: 'POST',
 					data: request,
-					beforeSend: function() 
-					{
-						for (var i = 0; i < spinners.length; i++)
-						{
-							spinners[i].innerHTML = '<span class="uk-icon-spinner uk-icon-spin" aria-hidden="true"></span>';
+					beforeSend: function() {
+						for (var i = 0; i < spinners.length; i++) {
+							var spinner = document.createElement('span');
+							spinner.classList.add('uk-icon-spinner');
+							spinner.classList.add('uk-icon-spin');
+
+							spinners[i].appendChild(spinner);
 						}
 					},
-					success: function(response)
-					{
-						if (response.success)
-						{
-							// Update players
-							instance.querySelector('.count_2').innerHTML = response.data.bcsrace.playercount;
-							instance.querySelector('.count_3').innerHTML = response.data.bcslol.playercount;
-							instance.querySelector('.count_4').innerHTML = response.data.bcstech.playercount;
-							instance.querySelector('.count_5').innerHTML = response.data.bcsmanic.playercount;
-							instance.querySelector('.count_8').innerHTML = response.data.bcsrpg.playercount;
+					success: function(response) {
+						var data = response.data;
+						if (response.success) {
+							// Remove the spinners
+							for (var i = 0; i < spinners.length; i++) {
+								spinners[i].removeChild(spinners[i].lastChild);
+							}
 
-							// Update current map
-							instance.querySelector('.currentmap_2').innerHTML = response.data.bcsrace.currentmap;
-							instance.querySelector('.currentmap_3').innerHTML = response.data.bcslol.currentmap;
-							instance.querySelector('.currentmap_4').innerHTML = response.data.bcstech.currentmap;
-							instance.querySelector('.currentmap_5').innerHTML = response.data.bcsmanic.currentmap;
-							instance.querySelector('.currentmap_8').innerHTML = response.data.bcsrpg.currentmap;
+							// Loop through results
+							for (var prop in data) {
+								// Skip loop if the property is from prototype
+								if (!data.hasOwnProperty(prop)) continue;
 
-							// Update next map
-							instance.querySelector('.nextmap_2').innerHTML = response.data.bcsrace.nextmap;
-							instance.querySelector('.nextmap_3').innerHTML = response.data.bcslol.nextmap;
-							instance.querySelector('.nextmap_4').innerHTML = response.data.bcstech.nextmap;
-							instance.querySelector('.nextmap_5').innerHTML = response.data.bcsmanic.nextmap;
-							instance.querySelector('.nextmap_8').innerHTML = response.data.bcsrpg.nextmap;
+								var item        = data[prop];
+								var playercount = instance.querySelector('#count_' + item.id);
+								var currentmap  = instance.querySelector('#currentmap_' + item.id);
+								var nextmap     = instance.querySelector('#nextmap_' + item.id);
+
+								// Update player count
+								if (playercount) {
+									// Check if the new player count is bigger than the current player count
+									if (players.login !== undefined && item.playercount > playercount.innerText) {
+										notify(item.raw);
+									}
+									// Update player count for notifications
+									players.login = item.playercount;
+
+									playercount.innerHTML = item.playercount;
+								}
+
+								// Update current map
+								if (currentmap) {
+									currentmap.innerHTML = item.currentmap;
+								}
+
+								// Update next map
+								if (nextmap) {
+									nextmap.innerHTML = item.nextmap;
+								}
+							}
 						}
 					}
 				});
@@ -144,8 +176,7 @@ defined('_JEXEC') or die('Restricted access');
 				return false;
 			}
 
-			function getPlayersNames(itemId, instance)
-			{
+			function getPlayersNames(itemId, instance) {
 				// Assemble variables to submit
 				var request = {
 					option         : 'com_ajax',
@@ -156,8 +187,7 @@ defined('_JEXEC') or die('Restricted access');
 				};
 
 				// If there is an active menu item then we need to add it to the request.
-				if (itemId !== null)
-				{
+				if (itemId !== null) {
 					request['Itemid'] = itemId;
 				}
 
@@ -166,29 +196,23 @@ defined('_JEXEC') or die('Restricted access');
 				jQuery.ajax({
 					type: 'POST',
 					data: request,
-					beforeSend: function()
-					{
+					beforeSend: function() {
 						playerList.innerHTML = '';
 						playerList.innerHTML = '<li><span class="uk-icon-spinner uk-icon-spin uk-icon-large" aria-hidden="true"></span></li>';
 					},
-					success: function(response)
-					{
-						if (response.success)
-						{
-							if (response.data != '')
-							{
+					success: function(response) {
+						if (response.success) {
+							var results = response.data;
+							if (response.data != '') {
 								playerList.innerHTML = '';
 
-								var results = response.data;
-								for (var l = 0; l < results.length; l++)
-								{
+								for (var l = 0; l < results.length; l++) {
 									var login = isAdmin == 1 ? ' <span class="uk-text-muted uk-text-small">(' + results[l].login + ')</span>' : '';
 									var listItem = '<li>' + results[l].nickname + login + '</li>';
 									playerList.insertAdjacentHTML('beforeend', listItem);
 								}
 							}
-							else
-							{
+							else {
 								playerList.innerHTML = '<li class="uk-text-danger">No players online</li>';
 							}
 						}
@@ -199,8 +223,7 @@ defined('_JEXEC') or die('Restricted access');
 			}
 
 			jQuery('.players_modal').on({
-				'show.uk.modal': function(){
-
+				'show.uk.modal': function() {
 					var instance = jQuery(this).attr('id');
 					var itemId   = '<?php echo $Itemid; ?>';
 
@@ -209,8 +232,7 @@ defined('_JEXEC') or die('Restricted access');
 			});
 
 			<?php if (!$user->guest) : ?>
-			setInterval(function()
-			{
+			setInterval(function() {
 				var itemId = '<?php echo $Itemid; ?>';
 				getServerData(itemId, instance);
 			}, refresh);

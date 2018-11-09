@@ -44,6 +44,7 @@ class ModServersHelper
 			$output[$server->login]             = $server;
 			$output[$server->login]->currentmap = $cp->toHTML($output[$server->login]->currentmap, true);
 			$output[$server->login]->nextmap    = $cp->toHTML($output[$server->login]->nextmap, true);
+			$output[$server->login]->raw        = html_entity_decode(strip_tags($cp->toHTML($output[$server->login]->nickname, true, true, 'all')));
 		}
 
 		return $output;

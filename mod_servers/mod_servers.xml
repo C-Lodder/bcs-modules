@@ -18,7 +18,7 @@
 
 	<config>
 		<fields name="params">
-			<fieldset name="Basic">
+			<fieldset name="basic">
 	
 				<field
 					name="moduleclass_sfx"

@@ -20,14 +20,11 @@
 			<fieldset name="Basic">
 
 				<field
-					name="tags"
-					type="text"
-					label="BCS Tags" />
-
-				<field
-					name="password"
-					type="text"
-					label="Team Server Password" />
+					name="info"
+					type="subform"
+					formsource="modules/mod_bcsinfo/info.xml"
+					label="Info"
+					multiple="true" />
 
 			</fieldset>
 

@@ -32,7 +32,7 @@ Factory::getDocument()->addStyleDeclaration('
 	.tm-footer .bcsinfo-button:focus {
 		color: #323946;
 	}
-')
+');
 ?>
 
 <a href="#bcsinfo-modal" data-uk-modal="{center:true}" class="uk-button bcsinfo-button"><span class="uk-icon uk-icon-info-circle"></span></a>
@@ -42,14 +42,12 @@ Factory::getDocument()->addStyleDeclaration('
 		<a class="uk-modal-close uk-close"></a>
 		<h4 class="uk-modal-header uk-margin-top-remove">BCS Info</h4>
 		<table class="uk-table uk-table-striped">
-			<tr>
-				<td>BCS Tags</td>
-				<td><?php echo $tags; ?></td>
-			</tr>
-			<tr>
-				<td>Team Server Password</td>
-				<td><?php echo $password; ?></td>
-			</tr>
+			<?php foreach ($infos as $info) : ?>
+				<tr>
+					<td><?php echo $info->name; ?></td>
+					<td><?php echo $info->info; ?></td>
+				</tr>
+			<?php endforeach; ?>
 		</table>
 	</div>
 </div>

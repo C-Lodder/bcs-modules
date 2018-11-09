@@ -10,7 +10,6 @@ defined('_JEXEC') or die('Restricted access');
 
 use Joomla\CMS\Helper\ModuleHelper;
 
-$tags     = $params->get('tags');
-$password = $params->get('password');
+$infos = $params->get('info');
 
 require ModuleHelper::getLayoutPath('mod_bcsinfo');

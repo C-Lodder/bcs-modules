@@ -12,11 +12,6 @@ use Joomla\CMS\Helper\ModuleHelper;
 
 \JLoader::register('ModMatchesHelper', __DIR__ . '/helper.php');
 
-// Initiate classes
-$helper = new ModMatchesHelper;
-
-// Get the results
-$matches = $params->get('list_matches');
-$matches = $helper->groupByKey($matches);
+$matches = $params->get('matches');
 
 require ModuleHelper::getLayoutPath('mod_matches');

@@ -23,24 +23,24 @@ defined('_JEXEC') or die('Restricted access');
 		<tbody>
 		<?php foreach ($matches as $match) : ?>
 			<?php
-				$winner = $match[0];
+				$winner = $match->opponent;
 				$textClass = 'uk-text-danger';
 
-				if ($match[2] > $match[3])
+				if ($match->score > $match->score2)
 				{
 					$winner = 'BCS';
 					$textClass = 'uk-text-success';
 				}
-				else if ($match[2] === $match[3])
+				else if ($match->score === $match->score2)
 				{
 					$winner = 'Draw';
 					$textClass = 'uk-text-warning';
 				}
 			?>
 			<tr>
-				<td>BCS <span class="uk-text-warning">vs</span> <?php echo $match[0]; ?></td>
-				<td><?php echo $match[1]; ?></td>
-				<td class="<?php echo $textClass; ?>"><?php echo $match[2]; ?> : <?php echo $match[3]; ?></td>
+				<td>BCS <span class="uk-text-warning">vs</span> <?php echo $match->opponent; ?></td>
+				<td><?php echo $match->date; ?></td>
+				<td class="<?php echo $textClass; ?>"><?php echo $match->score; ?> : <?php echo $match->score2; ?></td>
 				<td class="uk-hidden-small"><?php echo $winner; ?></td>
 			</tr>
 		<?php endforeach; ?>

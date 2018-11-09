@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form>
+    <fieldset name="matches" label="Match">
+        <field name="opponent"
+			label="Opponent"
+			size="20"
+			type="text" />
+		<field name="date"
+			label="Date"
+			size="10"
+			type="text" />
+		<field name="score"
+			label="Score (BCS)"
+			size="5"
+			type="text" />
+		<field name="score2"
+			label="Score (Opponent)"
+			size="5"
+			type="text" />
+    </fieldset>
+</form>

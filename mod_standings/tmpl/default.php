@@ -31,29 +31,34 @@ Factory::getDocument()->addStyleDeclaration('
 		color: #e42222;
 	}
 ');
+
+$top = (int)$params->get('top', '10');
 ?>
 
-<div id="scores" class="uk-text-center uk-text-bold">
+<div class="uk-text-center uk-text-bold">
 	<h1 class="uk-article-title uk-margin-top-remove">Standings</h1>
-	<p class="uk-h3 uk-margin-top-remove">BCS (<span class="scoreBCS"></span>)<span class="uk-h4 uk-text-muted uk-display-inline-block uk-margin-small-left uk-margin-small-right">vs</span><?php echo $params->get('opponent'); ?> (<span class="scoreOther"></span>)</p>
+	<p class="uk-h3 uk-margin-top-remove">BCS (<span id="scoreBCS"></span>)<span class="uk-h4 uk-text-muted uk-display-inline-block uk-margin-small-left uk-margin-small-right">vs</span><?php echo $params->get('opponent'); ?> (<span id="scoreOther"></span>)</p>
 </div>
 
 <div class="uk-grid uk-grid-small" data-uk-grid-margin>
 	<?php 
 		foreach ($standings as $map)
 		{
-			if (strpos($map[0]['Name'], 'Chamber') === false) {
+			if (strpos($map[0]['Name'], 'Chamber') === false)
+			{
 				echo '<div class="uk-width-medium-1-3">';
 				echo '<div class="match_box">';
 				echo '<ul class="uk-list uk-margin-bottom">';
 				echo '<li class="uk-h6"><span class="uk-icon-justify uk-icon-flag-checkered" aria-hidden="true"></span> ' . $cp->toHTML($map[0]['Name']) . '</li>';
 				echo '</ul>';
 				echo '<ul class="uk-list uk-list-line">';
+
 				$i = 1;
-				$points = 10;
+				$points = $top;
+
 				foreach ($map as $v)
 				{
-					if ($i <= 10)
+					if ($i <= $top)
 					{
 						$class = 'top10';
 
@@ -127,32 +132,30 @@ Factory::getDocument()->addStyleDeclaration('
 <script>
 document.addEventListener('DOMContentLoaded', function() {
 
-	var totalBCS   = 0,
-		totalOther = 0,
-		wrapper    = document.getElementById('scores'),
-		points     = document.querySelectorAll('.getPoints');
+	var totalBCS   = 0;
+	var totalOther = 0;
+	var scoreBCS   = document.getElementById('scoreBCS');
+	var scoreOther = document.getElementById('scoreOther');
+	var points     = document.querySelectorAll('.getPoints');
 
-	for (var i = 0; i < points.length; i++)
-	{
+	for (var i = 0; i < points.length; i++) {
 		var el = points[i];
 
-		if (el.getAttribute('data-name') === 'bcs')
-		{
+		if (el.getAttribute('data-name') === 'bcs') {
 			totalBCS += parseInt(el.getAttribute('data-points'));
 		}
-		else
-		{
+		else {
 			totalOther += parseInt(el.getAttribute('data-points'));
 		}
 	}
 
-	var classBCS   = totalBCS > totalOther ? 'success' : 'danger',
-		classOther = totalBCS > totalOther ? 'danger' : 'success';
+	var classBCS   = totalBCS > totalOther ? 'success' : 'danger';
+	var classOther = totalBCS > totalOther ? 'danger' : 'success';
 
-	wrapper.querySelector('.scoreBCS').innerHTML = totalBCS;
-	wrapper.querySelector('.scoreBCS').classList.add('uk-text-' + classBCS);
+	scoreBCS.innerHTML = totalBCS;
+	scoreBCS.classList.add('uk-text-' + classBCS);
 
-	wrapper.querySelector('.scoreOther').innerHTML = totalOther;
-	wrapper.querySelector('.scoreOther').classList.add('uk-text-' + classOther);
+	scoreOther.innerHTML = totalOther;
+	scoreOther.classList.add('uk-text-' + classOther);
 });
 </script>

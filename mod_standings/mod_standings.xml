@@ -19,7 +19,13 @@
 	<config>
 		<fields name="params">
 			<fieldset name="basic">
-				
+
+				<field
+					name="top"
+					type="text"
+					default="10"
+					label="Count top XXX scores" />
+
 				<field
 					name="opponent"
 					type="text"

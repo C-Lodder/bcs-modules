@@ -8,6 +8,8 @@
 
 defined('_JEXEC') or die('Restricted access');
 
+use Joomla\CMS\Factory;
+
 $exclude = [
 	'fiendy',
 	'Mouse',
@@ -16,7 +18,7 @@ $exclude = [
 	'Lodder'
 ];
 
-$user = JFactory::getUser();
+$user = Factory::getUser();
 $isAdmin = $user->authorise('core.admin');
 
 ?>

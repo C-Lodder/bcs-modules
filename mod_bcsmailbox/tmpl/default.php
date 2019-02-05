@@ -11,9 +11,6 @@ defined('_JEXEC') or die('Restricted access');
 use Joomla\CMS\Factory;
 
 Factory::getDocument()->addStyleDeclaration('
-	.tm-footer .uk-modal {
-		color: #323946;
-	}
 	.tm-footer .bcsmailbox-button {
 		position: fixed;
 		top: 0;

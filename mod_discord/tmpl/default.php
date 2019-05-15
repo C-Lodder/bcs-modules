@@ -21,7 +21,9 @@ $root = JUri::root();
 
 <div id="bcs-discord-count" class="bcs-discord-count"></div>
 
-<ul id="bcs-discord" class="bcs-discord uk-list uk-list-line"></ul>
+<div class="uk-overflow-container uk-margin-top" style="height:315px">
+	<ul id="bcs-discord" class="bcs-discord uk-list uk-list-line"></ul>
+</div>
 
 <a href="#" id="bcs-discord-connect" class="uk-button uk-button-primary uk-button-small uk-float-right" target="_blank" rel="noopener noreferrer">Connect</a>
 

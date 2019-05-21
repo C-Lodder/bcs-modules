@@ -19,20 +19,41 @@ $root = JUri::root();
 
 <h3 class="uk-panel-title"><img src="<?php echo $root . 'media/mod_discord/images/logo.svg'; ?>" alt=""> Discord</h3>
 
-<div id="bcs-discord-count" class="bcs-discord-count"></div>
+<?php if (isset($server)) : ?>
+	<?php if ($membersCount == 1) : ?>
+		<div id="bcs-discord-count" class="bcs-discord-count"></div>
+	<?php endif; ?>
 
-<div class="uk-overflow-container uk-margin-top" style="height:315px">
-	<ul id="bcs-discord" class="bcs-discord uk-list uk-list-line"></ul>
-</div>
+	<?php if (isset($height)) : ?>
+		<div class="uk-overflow-container uk-margin" style="height:<?php echo $height; ?>px">
+	<?php else : ?>
+		<div class="uk-margin">
+	<?php endif; ?>
 
-<a href="#" id="bcs-discord-connect" class="uk-button uk-button-primary uk-button-small uk-float-right" target="_blank" rel="noopener noreferrer">Connect</a>
+		<ul id="bcs-discord" class="bcs-discord uk-list uk-list-line"></ul>
+
+		<?php if ($members == 1) : ?>
+			<h5>Members</h5>
+			<ul id="bcs-discord-members" class="bcs-discord-members uk-list"></ul>
+		<?php endif; ?>
+
+	</div>
+
+	<?php if ($connect == 1) : ?>
+		<a href="#" id="bcs-discord-connect" class="uk-button uk-button-primary uk-button-small uk-float-right" target="_blank" rel="noopener noreferrer">Connect</a>
+	<?php endif; ?>
+<?php else : ?>
+	<p>Please enter a Server ID</p>
+<?php endif; ?>
 
 <?php
 	Factory::getDocument()->addScriptOptions(
 		'discord',
 		[
-			'server' => $params->get('server'),
-			'root'   => $root
+			'server'       => $server,
+			'members'      => $members,
+			'membersCount' => $membersCount,
+			'connect'      => $connect
 		]
 	);
 ?>

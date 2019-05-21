@@ -10,4 +10,10 @@ defined('_JEXEC') or die('Restricted access');
 
 use Joomla\CMS\Helper\ModuleHelper;
 
+$server       = $params->get('server');
+$members      = $params->get('members', 1);
+$membersCount = $params->get('members-count', 1);
+$connect      = $params->get('connect', 1);
+$height       = $params->get('height', 300);
+
 require ModuleHelper::getLayoutPath('mod_discord');

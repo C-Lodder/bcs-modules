@@ -31,6 +31,26 @@
 					type="text"
 					label="Server ID" />
 
+				<field name="members" type="radio" class="btn-group" default="1" label="List members" description="This will display a list of all the server members, their avatar, status and current game being played">
+					<option value="0">JOFF</option>
+					<option value="1">JON</option>
+				</field>
+
+				<field name="members-count" type="radio" class="btn-group" default="1" label="Count members online" description="This will show the number of member currently online">
+					<option value="0">JOFF</option>
+					<option value="1">JON</option>
+				</field>
+
+				<field name="connect" type="radio" class="btn-group" default="1" label="Connect button" description="This will show a button, allowing users to connect to the server">
+					<option value="0">JOFF</option>
+					<option value="1">JON</option>
+				</field>
+
+				<field
+					name="height"
+					type="text"
+					label="Height (px)" />
+
 			</fieldset>
 
 		</fields>

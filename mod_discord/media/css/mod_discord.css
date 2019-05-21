@@ -33,6 +33,25 @@
 	margin-right: 5px;
 	border-radius: 50%;
 }
+.bcs-discord-user-status {
+    position: relative;
+    width: 8px;
+    height: 8px;
+    display: inline-block;
+    right: 10px;
+    bottom: 0px;
+    border-radius: 50%;
+	align-self: flex-end;
+}
+.bcs-discord-user-idle {
+    background: #e1d264;
+}
+.bcs-discord-user-offline {
+    background: #e16464;
+}
+.bcs-discord-user-online {
+    background: #67e164;
+}
 .bcs-discord-count {
 	color: #7289da;
 }
@@ -45,4 +64,21 @@
 	line-height: 1;
 	background-color: #7289da;
 	border-radius: 2px;
+}
+.bcs-discord-game {
+    font-size: 13px;
+    line-height: 18px;
+    color: #b2b2b2;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 150px;
+    display: inline-block;
+    margin-left: 5px;
+}
+
+@media (max-width: 959px) {
+	.bcs-discord-game {
+		width: auto;
+	}
 }

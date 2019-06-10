@@ -1,0 +1,58 @@
+/**
+ * @package    BCS_Tracks
+ * @author     Lodder
+ * @copyright  Copyright (C) 2019 Lodder. All Rights Reserved
+ * @license    GPL v3.0 or later http://www.gnu.org/licenses/gpl-3.0.html
+ */
+
+.bcstracks a {
+	display: block;
+}
+.bcstracks a:hover,
+.bcstracks a:focus {
+	text-decoration: none;
+}
+.bcstracks .by {
+	display: block;
+	font-size: 12px;
+	font-style: italic;
+	color: #111;
+}
+.bcstracks .magnet {
+	display: block;
+	font-size: 12px;
+	color: #f00;
+}
+.bcstracks img {
+	margin-bottom: 5px;
+}
+
+.uk-slidenav-position .uk-slidenav {
+	display: block !important;
+	background: rgba(255,255,255,.7);
+	color: #222;
+	font-size: 40px;
+	transform: translateY(-50%);
+	border-radius: 3px;
+}
+.uk-slidenav-position .uk-slidenav:hover,
+.uk-slidenav-position .uk-slidenav:focus {
+	color: #222;
+}
+
+.placeholder .list-inner {
+	background: #eeeded;
+	width: 266px;
+	height: 220px;
+	text-align: center;
+}
+.placeholder .uk-icon-spinner {
+	font-size: 35px;
+}
+
+.placeholder svg {
+	position: absolute;
+	max-width: 100%;
+	background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiBmaWxsPSJ3aGl0ZSI+CiAgPHBhdGggZD0iTTAgNCBMMCAyOCBMMzIgMjggTDMyIDQgeiBNNCAyNCBMMTAgMTAgTDE1IDE4IEwxOCAxNCBMMjQgMjR6IE0yNSA3IEE0IDQgMCAwIDEgMjUgMTUgQTQgNCAwIDAgMSAyNSA3Ij48L3BhdGg+Cjwvc3ZnPg==") no-repeat center hsl(0, 0%, 80%);
+	background-size: calc(100%/3);
+}

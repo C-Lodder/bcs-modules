@@ -74,9 +74,13 @@ class ModTracksHelper
 
 		return $moduleParams;
 	}
-	
+
 	/**
-	 *  Get the track objects and detect if it contains any magnetic blocks
+	 * Detect if it contains any magnetic blocks
+	 *
+	 * @param   string  $id  The ID of the track
+	 *
+	 * @return  bool
 	 */
 	private function checkMagnets($id)
 	{
@@ -96,7 +100,11 @@ class ModTracksHelper
 	}
 
 	/**
-	 *  Get the thumbnail extracted from the track
+	 * Get the thumbnail extracted from the track
+	 *
+	 * @param   string  $id  The ID of the track
+	 *
+	 * @return  string  The URL of the track image
 	 */
 	private function getTrackImage($id)
 	{
@@ -106,7 +114,11 @@ class ModTracksHelper
 	}
 
 	/**
-	 *  Extract the data we need from the object
+	 * Extract the data we need from the object
+	 *
+	 * @param   array  $results  The results from the request
+	 *
+	 * @return  array  The filtered results
 	 */
 	private function extractData($results)
 	{
@@ -133,11 +145,15 @@ class ModTracksHelper
 	}
 
 	/**
-	 *  Sory the array by key in reverse order
+	 * Sory the array by key
+	 *
+	 * @param   array  $array  The array to be sorted
+	 *
+	 * @return  array  The sorted array
 	 */
 	private function sortArray($array)
 	{
-		krsort($array);
+		ksort($array);
 
 		return $array;
 	}

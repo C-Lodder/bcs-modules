@@ -10,11 +10,12 @@ defined('_JEXEC') or die('Restricted access');
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Uri\Uri;
 
 HTMLHelper::_('stylesheet', 'mod_discord/mod_discord.css', ['version' => 'auto', 'relative' => true]);
 HTMLHelper::_('script', 'mod_discord/mod_discord.js', ['version' => 'auto', 'relative' => true]);
 
-$root = JUri::root();
+$root = Uri::root();
 ?>
 
 <h3 class="uk-panel-title"><img src="<?php echo $root . 'media/mod_discord/images/logo.svg'; ?>" alt=""> Discord</h3>

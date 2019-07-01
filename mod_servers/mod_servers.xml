@@ -16,6 +16,12 @@
 		<folder>tmpl</folder>
     </files>
 
+	<media folder="media" destination="mod_servers">
+		<filename>index.html</filename>
+		<folder>images</folder>
+		<folder>js</folder>
+	</media>
+
 	<config>
 		<fields name="params">
 			<fieldset name="basic">

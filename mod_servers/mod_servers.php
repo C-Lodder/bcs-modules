@@ -2,7 +2,7 @@
 /**
  * @package    BCS_Servers
  * @author     Lodder
- * @copyright  Copyright (C) 2018 Lodder. All Rights Reserved
+ * @copyright  Copyright (C) 2019 Lodder. All Rights Reserved
  * @license    GPL v3.0 or later http://www.gnu.org/licenses/gpl-3.0.html
  */
 

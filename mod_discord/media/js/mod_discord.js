@@ -79,7 +79,7 @@
 								membersListItem.appendChild(createBotTag());
 							}
 
-							if (user.game !== undefined) {
+							if (user.game !== undefined && !user.bot) {
 								memberGame = document.createElement('span');
 								memberGame.classList.add('bcs-discord-game');
 								memberGame.innerText = ` - ${user.game.name}`;

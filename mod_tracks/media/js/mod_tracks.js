@@ -19,7 +19,7 @@
 
 		// If there is an active menu item then we need to add it to the request.
 		if (itemId !== null) {
-			request['Itemid'] = itemId;
+			request.Itemid = itemId;
 		}
 
 		// AJAX request
@@ -70,7 +70,7 @@
 						wrapper.insertBefore(list, wrapper.firstChild);
 					});
 
-					var placeholders = wrapper.getElementsByClassName('placeholder');
+					const placeholders = wrapper.getElementsByClassName('placeholder');
 					while (placeholders.length > 0) {
 						placeholders[0].parentNode.removeChild(placeholders[0]);
 					}

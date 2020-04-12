@@ -12,8 +12,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Uri\Uri;
 
-$img = Uri::root() . 'modules/mod_servers/maniaplanet.png';
-
+HTMLHelper::_('behavior.core');
 HTMLHelper::_('script', 'mod_servers/mod_servers.js', ['version' => 'auto', 'relative' => true]);
 ?>
 
@@ -80,7 +79,7 @@ HTMLHelper::_('script', 'mod_servers/mod_servers.js', ['version' => 'auto', 'rel
 			'itemId'  => $Itemid ? $Itemid : 'null',
 			'refresh' => $refresh,
 			'isAdmin' => $isAdmin,
-			'img'     => $img,
+			'img'     => Uri::root() . 'modules/mod_servers/maniaplanet.png',
 			'guest'   => $user->guest,
 		]
 	);

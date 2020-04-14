@@ -3,7 +3,7 @@
     <name>BCS Standings</name>
     <author>Lodder</author>
 	<creationDate>21th May 2016</creationDate>
-	<copyright>Copyright (C) 2018 | Lodder</copyright>
+	<copyright>Copyright (C) 2020 | Lodder</copyright>
 	<license>http://www.gnu.org/licenses/gpl-3.0.html</license>
 	<authorEmail>admin@bcsmania.co.uk</authorEmail>
     <version>1.0.3</version>
@@ -15,6 +15,12 @@
         <filename>index.html</filename>
 		<folder>tmpl</folder>
     </files>
+
+	<media folder="media" destination="mod_standings">
+		<filename>index.html</filename>
+		<folder>css</folder>
+		<folder>js</folder>
+	</media>
 
 	<config>
 		<fields name="params">

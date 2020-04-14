@@ -2,7 +2,7 @@
 /**
  * @package    BCS_Standings
  * @author     Lodder
- * @copyright  Copyright (C) 2018 Lodder. All Rights Reserved
+ * @copyright  Copyright (C) 2020 Lodder. All Rights Reserved
  * @license    GPL v3.0 or later http://www.gnu.org/licenses/gpl-3.0.html
  */
 
@@ -39,7 +39,7 @@ class ModStandingsHelper
 	{
 		$return = [];
 
-		foreach($array as $v)
+		foreach ($array as $v)
 		{
 			$return[$v[$key]][] = $v;
 		}
@@ -51,7 +51,7 @@ class ModStandingsHelper
 	{
 		$db = Factory::getDbo();
 
-		$query = $db->getQuery(true)->select(array('*'))
+		$query = $db->getQuery(true)->select(['*'])
 			->from($db->qn('match_ranks'))
 			->order($db->qn('Id') . ' ASC');
 		$db->setQuery($query);

@@ -1,0 +1,26 @@
+/**
+ * @package    BCS_Standings
+ * @author     Lodder
+ * @copyright  Copyright (C) 2020 Lodder. All Rights Reserved
+ * @license    GPL v3.0 or later http://www.gnu.org/licenses/gpl-3.0.html
+ */
+
+.match_box {
+	padding: 10px;
+	background: rgba(0, 0, 0,.3);
+}
+.match_number {
+	display: inline-block;
+	min-width: 20px;
+	text-align: right;
+	color: #fff;
+}
+.top3 {
+	color: #76ec00;
+}
+.top6 {
+	color: #ff0;
+}
+.top10 {
+	color: #e42222;
+}

@@ -2,35 +2,16 @@
 /**
  * @package    BCS_Standings
  * @author     Lodder
- * @copyright  Copyright (C) 2018 Lodder. All Rights Reserved
+ * @copyright  Copyright (C) 2020 Lodder. All Rights Reserved
  * @license    GPL v3.0 or later http://www.gnu.org/licenses/gpl-3.0.html
  */
 
 defined('_JEXEC') or die('Restricted access');
 
-use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
 
-Factory::getDocument()->addStyleDeclaration('
-	.match_box {
-		padding: 10px;
-		background: rgba(0,0,0,.3);
-	}
-	.match_number {
-		display: inline-block;
-		min-width: 20px;
-		text-align: right;
-		color: #fff;
-	}
-	.top3 {
-		color: #76ec00;
-	}
-	.top6 {
-		color: #ff0;
-	}
-	.top10 {
-		color: #e42222;
-	}
-');
+HTMLHelper::_('stylesheet', 'mod_standings/mod_standings.css', ['version' => 'auto', 'relative' => true]);
+HTMLHelper::_('script', 'mod_standings/mod_standings.js', ['version' => 'auto', 'relative' => true]);
 
 $top = (int)$params->get('top', '10');
 ?>
@@ -79,7 +60,7 @@ $top = (int)$params->get('top', '10');
 							$bcs = 'bcs';
 						}
 
-						echo '<li class="getPoints" data-name="' . $bcs . '" data-points="' . $points-- . '">';
+						echo '<li class="getPoints" data-player-id="' . $v['PlayerId'] . '" data-team="' . $bcs . '" data-name="' . $v['NickName'] . '" data-points="' . $points-- . '">';
 						echo '<span class="match_number">'. $i++ . '.</span>';
 						echo '<span class="' . $class . ' uk-text-bold"> ' . $helper->formatTime($v['Score']) . '</span>';
 						echo ' - ' . $nickname;
@@ -117,7 +98,7 @@ $top = (int)$params->get('top', '10');
 							$class = 'top6';
 						}
 
-						echo '<li>';
+						echo '<li id="' . $rank->Player . '">';
 						echo '<span class="match_number">' . $id .  '.</span> - ';
 						echo '<span class="' . $class . ' uk-text-bold">[' . $rank->Rank . ']</span> - ';
 						echo '<span class="match_number">' . $cp->toHTML($rank->Player) .  '</span>';
@@ -128,34 +109,3 @@ $top = (int)$params->get('top', '10');
 		</div>
 	</div>
 </div>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-
-	var totalBCS   = 0;
-	var totalOther = 0;
-	var scoreBCS   = document.getElementById('scoreBCS');
-	var scoreOther = document.getElementById('scoreOther');
-	var points     = document.querySelectorAll('.getPoints');
-
-	for (var i = 0; i < points.length; i++) {
-		var el = points[i];
-
-		if (el.getAttribute('data-name') === 'bcs') {
-			totalBCS += parseInt(el.getAttribute('data-points'));
-		}
-		else {
-			totalOther += parseInt(el.getAttribute('data-points'));
-		}
-	}
-
-	var classBCS   = totalBCS > totalOther ? 'success' : 'danger';
-	var classOther = totalBCS > totalOther ? 'danger' : 'success';
-
-	scoreBCS.innerHTML = totalBCS;
-	scoreBCS.classList.add('uk-text-' + classBCS);
-
-	scoreOther.innerHTML = totalOther;
-	scoreOther.classList.add('uk-text-' + classOther);
-});
-</script>

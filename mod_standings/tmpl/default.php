@@ -110,7 +110,7 @@ $top = (int)$params->get('top', '10');
 	</div>
 	<div class="uk-width-medium-1-3">
 		<div class="uk-text-center uk-text-bold">
-			<h3 class="uk-margin-top-remove">Accumilated Points</h3>
+			<h3 class="uk-margin-top-remove">Accumulated Points</h3>
 		</div>
 		<div class="match_box">
 			<ul id="point-ranks" class="uk-list uk-list-line"></ul>

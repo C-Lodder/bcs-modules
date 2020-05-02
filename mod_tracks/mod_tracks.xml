@@ -3,10 +3,10 @@
 	<name>BCS Tracks</name>
 	<author>Lodder</author>
 	<creationDate>17-Oct-2016</creationDate>
-	<copyright>Copyright (C) 2018 | Lodder</copyright>
+	<copyright>Copyright (C) 2020 | Lodder</copyright>
 	<license>http://www.gnu.org/licenses/gpl-3.0.html</license>
 	<authorEmail>admin@bcsmania.co.uk</authorEmail>
-	<version>1.0.5</version>
+	<version>1.0.6</version>
 	<description>Latest BCS tracks - pulled from ManiaExchange</description>
 	<files>
 		<filename module="mod_tracks">mod_tracks.php</filename>

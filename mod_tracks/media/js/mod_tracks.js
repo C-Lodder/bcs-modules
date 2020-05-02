@@ -19,7 +19,7 @@
 
 		// If there is an active menu item then we need to add it to the request.
 		if (itemId !== null) {
-			request.Itemid = itemId;
+			request['Itemid'] = itemId;
 		}
 
 		// AJAX request
@@ -51,21 +51,39 @@
 
 						const img = new Image;
 						img.addEventListener('load', () => {
-							anchor.appendChild(img);
-							anchor.appendChild(span);
+							anchor.append(img);
+							anchor.append(span);
 						}, false);
 						img.src = obj.screenshot;
 
-						list.appendChild(anchor);
-						list.appendChild(by);
-						list.appendChild(by2);
+						const actions = document.createElement('div');
+						actions.classList.add('uk-flex');
+
+						const download = document.createElement('a');
+						download.classList.add('uk-button', 'uk-button-primary', 'uk-button-small');
+						download.setAttribute('href', `https://tm.mania-exchange.com/tracks/download/${obj.TrackID}`);
+						download.innerText = 'Download';
+
+						const install = document.createElement('a');
+						install.classList.add('uk-button', 'uk-button-primary', 'uk-button-small', 'uk-margin-left');
+						install.setAttribute('href', `https://tm.mania-exchange.com/tracks/installandplay/${obj.TrackID}`);
+						install.innerText = 'Install & Play';
+
+						actions.append(download);
+						actions.append(install);
+
+						list.append(anchor);
+						list.append(by);
+						list.append(by2);
 
 						if (obj.magnets) {
 							const magnet = document.createElement('div');
 							magnet.classList.add('magnet');
 							magnet.innerHTML = '<strong>WARNING</strong>: Contains magnetic blocks!';
-							list.appendChild(magnet);
+							list.append(magnet);
 						}
+
+						list.append(actions);
 
 						wrapper.insertBefore(list, wrapper.firstChild);
 					});

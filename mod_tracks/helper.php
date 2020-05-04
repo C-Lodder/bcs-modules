@@ -34,19 +34,25 @@ class ModTracksHelper
 	public static function getAuthorTracksAjax()
 	{
 		$helper  = new ModTracksHelper;
-		$authors = explode(',', $helper->getParams()->get('authors'));
+		$authors = Factory::getApplication()->input->json->get('authors');
 
 		$results = [];
-		$httpOptions = [
-			'userAgent' => "User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.57 Safari/537.17\r\n"
-		];
-		$options = new Registry($httpOptions);
-		$http    = HttpFactory::getHttp($options);
-
+		$options = new Registry;
+		$options->set('userAgent', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:41.0) Gecko/20100101 Firefox/41.0');
+		$http = HttpFactory::getHttp($options);
+		
 		foreach ($authors as $author)
 		{
-			$httpResult = $http->get(self::$baseurl . $author);
-			$json       = json_decode($httpResult->body);
+			try
+			{
+				$result = $http->get(self::$baseurl . $author);
+			}
+			catch (RuntimeException $e)
+			{
+				throw new \RuntimeException('Unable to fetch API data.', $e->getCode(), $e);
+			}
+
+			$json = json_decode($result->body);
 
 			if ($json->totalItemCount === 0)
 			{
@@ -84,14 +90,19 @@ class ModTracksHelper
 	 */
 	private function checkMagnets($id)
 	{
-		$httpOptions = [
-			'userAgent' => "User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.57 Safari/537.17\r\n"
-		];
-		$options    = new Registry($httpOptions);
-		$http       = HttpFactory::getHttp($options);
-		$httpResult = $http->get($this->objects . $id);
+		$options = new Registry;
+		$options->set('userAgent', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:41.0) Gecko/20100101 Firefox/41.0');
 
-		if (strpos($httpResult->body, 'Magnet') !== false)
+		try
+		{
+			$result = HttpFactory::getHttp($options)->get($this->objects . $id);
+		}
+		catch (RuntimeException $e)
+		{
+			throw new \RuntimeException('Unable to fetch API data.', $e->getCode(), $e);
+		}
+
+		if (strpos($result->body, 'Magnet') !== false)
 		{
 			return true;
 		}

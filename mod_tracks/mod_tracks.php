@@ -8,12 +8,8 @@
 
 defined('_JEXEC') or die('Restricted access');
 
-use Joomla\CMS\Factory;
 use Joomla\CMS\Helper\ModuleHelper;
 
 \JLoader::register('ModTracksHelper', __DIR__ . '/helper.php');
-
-$active = Factory::getApplication()->getMenu()->getActive();
-$itemId = is_null($active) ? null : $active->id;
 
 require ModuleHelper::getLayoutPath('mod_tracks');

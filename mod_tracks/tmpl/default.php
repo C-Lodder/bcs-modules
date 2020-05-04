@@ -54,7 +54,7 @@ HTMLHelper::_('script', 'mod_tracks/mod_tracks.js', ['version' => 'auto', 'relat
 	Factory::getDocument()->addScriptOptions(
 		'bcs-tracks',
 		[
-			'itemId' => $itemId,
+			'authors' => $params->get('authors'),
 		]
 	);
 ?>

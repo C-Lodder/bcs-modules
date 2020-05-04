@@ -65,22 +65,6 @@ class ModTracksHelper
 		return $helper->extractData($results);
 	}
 
-	private function getParams()
-	{
-		$module = ModuleHelper::getModule('mod_tracks');
-		$moduleParams = new Registry;
-
-		// When using the preview feature when no module params have been saved we get an
-		// empty string back from ModuleHelper::getModule for the params which is obviously
-		// not valid json and as a result Registry blows up.
-		if ($module->params !== '')
-		{
-			$moduleParams->loadString($module->params);
-		}
-
-		return $moduleParams;
-	}
-
 	/**
 	 * Detect if it contains any magnetic blocks
 	 *

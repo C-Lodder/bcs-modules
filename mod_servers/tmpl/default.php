@@ -2,7 +2,7 @@
 /**
  * @package    BCS_Servers
  * @author     Lodder
- * @copyright  Copyright (C) 2019 Lodder. All Rights Reserved
+ * @copyright  Copyright (C) 2020 Lodder. All Rights Reserved
  * @license    GPL v3.0 or later http://www.gnu.org/licenses/gpl-3.0.html
  */
 
@@ -31,7 +31,7 @@ HTMLHelper::_('script', 'mod_servers/mod_servers.js', ['version' => 'auto', 'rel
 			<?php
 				$login = $server->login;
 			?>
-			<?php if ($login === 'bcseslspeed' || ($private == 0 && $login === 'bcsrace')) : ?>
+			<?php if ($login === 'bcseslspeed' || ($private === 0 && $login === 'bcsrace')) : ?>
 				<?php continue; ?>
 			<?php else : ?>
 				<?php
@@ -42,13 +42,16 @@ HTMLHelper::_('script', 'mod_servers/mod_servers.js', ['version' => 'auto', 'rel
 					$players  = $helper->getPlayers($id);
 				?>
 				<tr>
-					<td class="spinner">
+					<td>
 						<?php echo $nickname; ?>
 						<?php if ($login === 'bcsrace') :  ?>
 							<span class="uk-icon-lock" aria-hidden="true"></span>
 						<?php endif; ?>
 					</td>
-					<td><span id="count_<?php echo $id; ?>"><?php echo $server->playercount; ?></span> / <?php echo $server->maxplayers; ?></td>
+					<td>
+						<span id="count_<?php echo $id; ?>"><?php echo $server->playercount; ?></span> / <?php echo $server->maxplayers; ?>
+						<span class="uk-icon-spinner uk-icon-spin uk-hidden" aria-hidden="true"></span>
+					</td>
 					<td class="uk-hidden-small"><span id="currentmap_<?php echo $id; ?>"><?php echo $cp->toHTML($current, true); ?></span></td>
 					<td class="uk-visible-large"><span id="nextmap_<?php echo $id; ?>"><?php echo $cp->toHTML($next, true); ?></span></td>
 					<td class="uk-hidden-small server-actions">
@@ -76,7 +79,6 @@ HTMLHelper::_('script', 'mod_servers/mod_servers.js', ['version' => 'auto', 'rel
 	Factory::getDocument()->addScriptOptions(
 		'servers',
 		[
-			'itemId'  => $Itemid ? $Itemid : 'null',
 			'refresh' => $refresh,
 			'isAdmin' => $isAdmin,
 			'img'     => Uri::root() . 'modules/mod_servers/maniaplanet.png',

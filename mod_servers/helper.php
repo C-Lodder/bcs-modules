@@ -2,7 +2,7 @@
 /**
  * @package    BCS_Servers
  * @author     Lodder
- * @copyright  Copyright (C) 2019 Lodder. All Rights Reserved
+ * @copyright  Copyright (C) 2020 Lodder. All Rights Reserved
  * @license    GPL v3.0 or later http://www.gnu.org/licenses/gpl-3.0.html
  */
 
@@ -14,28 +14,36 @@ use Joomla\CMS\Factory;
 
 class ModServersHelper
 {
+	private $db = null;
+
+	private $app = null;
+
+	public function __construct()
+	{
+		$this->db  = Factory::getDbo();
+		$this->app = Factory::getApplication();
+	}
+
 	public function getServers($login = null)
 	{
-		$db = Factory::getDbo();
-
-		$query = $db->getQuery(true)
+		$query = $this->db->getQuery(true)
 			->select(['*'])
-			->from($db->quoteName('servers'));
+			->from($this->db->qn('servers'));
 
 		if ($login != '')
 		{
-			$query->where($db->quoteName('login') . ' = ' . $db->quote($login));
+			$query->where($this->db->qn('login') . ' = ' . $this->db->q($login));
 		}
 
-		$db->setQuery($query);
+		$this->db->setQuery($query);
 
-		return $db->loadObjectList();
+		return $this->db->loadObjectList();
 	}
 
 	public static function getServerDataAjax()
 	{
-		$cp      = new TMFColorParser();
-		$helper  = new ModServersHelper();
+		$cp      = new TMFColorParser;
+		$helper  = new ModServersHelper;
 		$servers = $helper->getServers();
 		$output  = [];
 
@@ -52,9 +60,8 @@ class ModServersHelper
 
 	public static function getPlayersNamesAjax()
 	{
-		$helper  = new ModServersHelper();
-		$array   = Factory::getApplication()->input->post->getArray([]);
-		$servers = $helper->getServers($array['data']['server']);
+		$helper  = new ModServersHelper;
+		$servers = $helper->getServers(Factory::getApplication()->input->json->get('servers'));
 
 		$htmlOutput = [];
 
@@ -73,7 +80,7 @@ class ModServersHelper
 
 	public function getPlayers($id)
 	{
-		$cp = new TMFColorParser();
+		$cp = new TMFColorParser;
 		$cp->autoContrastColor('#ffffff');
 
 		$players = $this->getPlayersData($id);
@@ -93,14 +100,12 @@ class ModServersHelper
 
 	private function getPlayersData($id)
 	{
-		$db = Factory::getDbo();
+		$query = $this->db->getQuery(true)
+			->select(['*'])
+			->from($this->db->qn('players'))
+			->where($this->db->qn('server_id') . ' = ' . $id);
+		$this->db->setQuery($query);
 
-		$query = $db->getQuery(true);
-		$query->select(['*'])
-			  ->from($db->quoteName('players'))
-			  ->where($db->quoteName('server_id') . ' = ' . $id);
-		$db->setQuery($query);
-
-		return $db->loadObjectList();
+		return $this->db->loadObjectList();
 	}
 }

@@ -9,6 +9,7 @@
   document.addEventListener('DOMContentLoaded', () => {
     // Assemble variables to submit
     const options = Joomla.getOptions('bcs-tracks')
+    const wrapper = document.getElementById('bcstracks-slider')
     const request = {
       authors: options.authors.split(','),
     }
@@ -19,7 +20,6 @@
       })
       .then(response => response.json())
       .then(response => {
-        const wrapper = document.getElementById('bcstracks-slider')
         const data = response.data
 
         Object.keys(data).forEach(key => {
@@ -30,8 +30,8 @@
           anchor.setAttribute('href', `https://tm.mania-exchange.com/tracks/${obj.TrackID}`)
           anchor.setAttribute('target', '_blank')
 
-          const span = document.createElement('span')
-          span.innerHTML = obj.GbxMapName
+          const name = document.createElement('span')
+          name.innerHTML = obj.GbxMapName
 
           const by = document.createElement('div')
           by.classList.add('by')
@@ -41,11 +41,18 @@
           by2.classList.add('by')
           by2.innerText = `Uploaded ${obj.UploadedAt}`
 
+          const imgPlaceholder = document.createElement('svg')
+          imgPlaceholder.style.width = '266px'
+          imgPlaceholder.style.height = '193px'
+
+          anchor.append(imgPlaceholder)
+
           const img = new Image
           img.src = obj.screenshot
           img.addEventListener('load', () => {
             anchor.append(img)
-            anchor.append(span)
+            anchor.append(name)
+            anchor.removeChild(imgPlaceholder)
           }, false)
 
           const actions = document.createElement('div')
@@ -78,15 +85,16 @@
           list.append(actions)
 
           wrapper.insertBefore(list, wrapper.firstChild)
-        })
 
+          const height = wrapper.querySelector('li').height
+          wrapper.style.minHeight = `${height}px`
+        })
+      })
+      .then(response => {
         const placeholders = wrapper.getElementsByClassName('placeholder')
         while (placeholders.length > 0) {
           placeholders[0].parentNode.removeChild(placeholders[0])
         }
-
-        const height = wrapper.querySelector('li').height
-        wrapper.style.minHeight = `${height}px`
       })
   })
 })()

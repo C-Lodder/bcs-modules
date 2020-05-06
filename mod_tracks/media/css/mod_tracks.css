@@ -27,6 +27,10 @@
 	margin-bottom: 5px;
 }
 
+#bcstracks-slider {
+	min-height: 310px;
+}
+
 .uk-slidenav-position .uk-slidenav {
 	display: block !important;
 	background: rgba(255,255,255,.7);
@@ -43,16 +47,32 @@
 .placeholder .list-inner {
 	background: #eeeded;
 	width: 266px;
-	height: 220px;
+	height: 193px;
 	text-align: center;
 }
 .placeholder .uk-icon-spinner {
 	font-size: 35px;
 }
 
-.placeholder svg {
+.placeholder svg,
+.uk-slider li svg {
 	position: absolute;
 	max-width: 100%;
 	background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiBmaWxsPSJ3aGl0ZSI+CiAgPHBhdGggZD0iTTAgNCBMMCAyOCBMMzIgMjggTDMyIDQgeiBNNCAyNCBMMTAgMTAgTDE1IDE4IEwxOCAxNCBMMjQgMjR6IE0yNSA3IEE0IDQgMCAwIDEgMjUgMTUgQTQgNCAwIDAgMSAyNSA3Ij48L3BhdGg+Cjwvc3ZnPg==") no-repeat center hsl(0, 0%, 80%);
 	background-size: calc(100%/3);
+}
+
+.placeholder-content {
+	width: 266px;
+    height: 20px;
+    margin: 5px 0;
+    overflow: hidden;
+    animation: 1s forwards infinite placeholderAnimate;
+    background: linear-gradient(to right, #eee 2%, #ddd 18%, #eee 33%);
+    background-size: 522px;
+}
+
+@keyframes placeholderAnimate {
+    0% { background-position: -266px 0; }
+    100% { background-position: 266px 0; }
 }

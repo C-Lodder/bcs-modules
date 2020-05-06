@@ -22,26 +22,54 @@ HTMLHelper::_('script', 'mod_tracks/mod_tracks.js', ['version' => 'auto', 'relat
 		<ul id="bcstracks-slider" class="uk-slider uk-grid uk-grid-width-medium-1-4 uk-grid-medium">
 			<li class="placeholder">
 				<div class="list-inner uk-flex uk-flex-middle uk-flex-center">
-					<svg width="266px" height="220px"></svg>
+					<svg width="266px" height="193px"></svg>
 					<span class="uk-icon-spinner uk-icon-spin" aria-hidden="true"></span>
+				</div>
+				<div class="placeholder-content"></div>
+				<div class="placeholder-content"></div>
+				<div class="placeholder-content"></div>
+				<div class="uk-flex">
+					<a class="uk-button uk-button-primary uk-button-small" href="#">Download</a>
+					<a class="uk-button uk-button-primary uk-button-small uk-margin-left" href="#">Install &amp; Play</a>
 				</div>
 			</li>
 			<li class="placeholder">
 				<div class="list-inner uk-flex uk-flex-middle uk-flex-center">
-					<svg width="266px" height="220px"></svg>
+					<svg width="266px" height="193px"></svg>
 					<span class="uk-icon-spinner uk-icon-spin" aria-hidden="true"></span>
+				</div>
+				<div class="placeholder-content"></div>
+				<div class="placeholder-content"></div>
+				<div class="placeholder-content"></div>
+				<div class="uk-flex">
+					<a class="uk-button uk-button-primary uk-button-small" href="#">Download</a>
+					<a class="uk-button uk-button-primary uk-button-small uk-margin-left" href="#">Install &amp; Play</a>
 				</div>
 			</li>
 			<li class="placeholder">
 				<div class="list-inner uk-flex uk-flex-middle uk-flex-center">
-					<svg width="266px" height="220px"></svg>
+					<svg width="266px" height="193px"></svg>
 					<span class="uk-icon-spinner uk-icon-spin" aria-hidden="true"></span>
+				</div>
+				<div class="placeholder-content"></div>
+				<div class="placeholder-content"></div>
+				<div class="placeholder-content"></div>
+				<div class="uk-flex">
+					<a class="uk-button uk-button-primary uk-button-small" href="#">Download</a>
+					<a class="uk-button uk-button-primary uk-button-small uk-margin-left" href="#">Install &amp; Play</a>
 				</div>
 			</li>
 			<li class="placeholder">
 				<div class="list-inner uk-flex uk-flex-middle uk-flex-center">
-					<svg width="266px" height="220px"></svg>
+					<svg width="266px" height="193px"></svg>
 					<span class="uk-icon-spinner uk-icon-spin" aria-hidden="true"></span>
+				</div>
+				<div class="placeholder-content"></div>
+				<div class="placeholder-content"></div>
+				<div class="placeholder-content"></div>
+				<div class="uk-flex">
+					<a class="uk-button uk-button-primary uk-button-small" href="#">Download</a>
+					<a class="uk-button uk-button-primary uk-button-small uk-margin-left" href="#">Install &amp; Play</a>
 				</div>
 			</li>
 		</ul>

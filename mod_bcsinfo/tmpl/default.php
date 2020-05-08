@@ -10,8 +10,8 @@ defined('_JEXEC') or die('Restricted access');
 
 use Joomla\CMS\HTML\HTMLHelper;
 
-HTMLHelper::_('stylesheet', 'mod_bcsinfo/mod_bcsinfo.css', ['version' => 'auto', 'relative' => true]);
-HTMLHelper::_('script', 'mod_bcsinfo/mod_bcsinfo.js', ['version' => 'auto', 'relative' => true]);
+HTMLHelper::_('stylesheet', 'mod_bcsinfo/mod_bcsinfo.min.css', ['version' => 'auto', 'relative' => true]);
+HTMLHelper::_('script', 'mod_bcsinfo/mod_bcsinfo.min.js', ['version' => 'auto', 'relative' => true]);
 ?>
 
 <a href="#bcsinfo-modal" data-uk-modal="{center:true}" class="uk-button bcsinfo-button"><span class="uk-icon uk-icon-info-circle"></span></a>

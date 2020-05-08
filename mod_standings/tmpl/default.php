@@ -10,8 +10,8 @@ defined('_JEXEC') or die('Restricted access');
 
 use Joomla\CMS\HTML\HTMLHelper;
 
-HTMLHelper::_('stylesheet', 'mod_standings/mod_standings.css', ['version' => 'auto', 'relative' => true]);
-HTMLHelper::_('script', 'mod_standings/mod_standings.js', ['version' => 'auto', 'relative' => true]);
+HTMLHelper::_('stylesheet', 'mod_standings/mod_standings.min.css', ['version' => 'auto', 'relative' => true]);
+HTMLHelper::_('script', 'mod_standings/mod_standings.min.js', ['version' => 'auto', 'relative' => true]);
 
 $top = (int)$params->get('top', '10');
 ?>

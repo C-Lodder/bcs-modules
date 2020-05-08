@@ -13,8 +13,8 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Uri\Uri;
 
 HTMLHelper::_('script', Uri::root() . 'templates/yoo_monday/warp/vendor/uikit/js/components/slider.js', [], ['async' => true]);
-HTMLHelper::_('stylesheet', 'mod_tracks/mod_tracks.css', ['version' => 'auto', 'relative' => true]);
-HTMLHelper::_('script', 'mod_tracks/mod_tracks.js', ['version' => 'auto', 'relative' => true]);
+HTMLHelper::_('stylesheet', 'mod_tracks/mod_tracks.min.css', ['version' => 'auto', 'relative' => true]);
+HTMLHelper::_('script', 'mod_tracks/mod_tracks.min.js', ['version' => 'auto', 'relative' => true]);
 ?>
 
 <div id="bcstracks" class="uk-slidenav-position bcstracks" data-uk-slider="{infinite: false}">

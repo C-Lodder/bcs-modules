@@ -13,7 +13,7 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Uri\Uri;
 
 HTMLHelper::_('behavior.core');
-HTMLHelper::_('script', 'mod_servers/mod_servers.js', ['version' => 'auto', 'relative' => true]);
+HTMLHelper::_('script', 'mod_servers/mod_servers.min.js', ['version' => 'auto', 'relative' => true]);
 ?>
 
 <table id="tm_server" class="uk-table">

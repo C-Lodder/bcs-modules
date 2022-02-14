@@ -10,8 +10,6 @@ defined('_JEXEC') or die('Restricted access');
 
 use Joomla\CMS\Helper\ModuleHelper;
 
-\JLoader::register('ModMatchesHelper', __DIR__ . '/helper.php');
-
 $matches = $params->get('matches');
 
 require ModuleHelper::getLayoutPath('mod_matches');

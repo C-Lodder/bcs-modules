@@ -15,7 +15,7 @@ defined('_JEXEC') or die('Restricted access');
 		<thead>
 			<tr>
 				<th>Title</th>
-				<th>Date</th>
+				<th class="hidden-small">Date</th>
 				<th>Score</th>
 			</tr>
 		</thead>
@@ -35,7 +35,7 @@ defined('_JEXEC') or die('Restricted access');
 			?>
 			<tr>
 				<td>BCS <span class="text-warning">vs</span> <?php echo $match->opponent; ?></td>
-				<td><?php echo $match->date; ?></td>
+				<td class="hidden-small"><?php echo $match->date; ?></td>
 				<td class="<?php echo $textClass; ?>"><?php echo $match->score; ?> : <?php echo $match->score2; ?></td>
 			</tr>
 		<?php endforeach; ?>

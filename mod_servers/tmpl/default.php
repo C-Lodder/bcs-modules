@@ -36,7 +36,7 @@ HTMLHelper::_('script', 'mod_servers/mod_servers.min.js', ['version' => 'auto', 
 			<th style="width:100px">Players</th>
 			<th class="hidden-small">Current Map</th>
 			<th class="hidden-small">Next Map</th>
-			<th style="width:160px">Actions</th>
+			<th class="hidden-small" style="width:160px">Actions</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -65,7 +65,7 @@ HTMLHelper::_('script', 'mod_servers/mod_servers.min.js', ['version' => 'auto', 
 					</td>
 					<td class="hidden-small"><span id="currentmap_<?php echo $id; ?>"><?php echo $cp->toHTML($current, true); ?></span></td>
 					<td class="hidden-small"><span id="nextmap_<?php echo $id; ?>"><?php echo $cp->toHTML($next, true); ?></span></td>
-					<td class="server-actions">
+					<td class="hidden-small" class="server-actions">
 						<div class="flex justify-content-between">
 							<a href="#" id="<?php echo $login; ?>" data-bs-toggle="modal" data-bs-target="#players_modal_<?php echo $id; ?>" class="show-players" title="Players"><svg width="25" height="25"><use xlink:href="#users"></use></svg></a>	
 							<a class="hidden-small" href="maniaplanet://#join=<?php echo $login . '@' . $server->title; ?>" target="_blank" title="Join"><svg width="25" height="25"><use xlink:href="#sign-in"></use></svg></a>

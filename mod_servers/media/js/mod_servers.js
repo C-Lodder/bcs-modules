@@ -25,7 +25,7 @@
     content: 'The message to send',
   }
 
-  // postData('https://discord.com/api/webhooks/730714251764826114/8UQwUe-_h8uCYCf71iflIE0lXvdXBywodyw8QqPAAU6MrPpiotH3r-4RzniasbHNRd9W', message)
+  // postData('https://discord.com/api/webhooks/xxx', message)
   // .then(data => {
     // console.log(data) // JSON data parsed by `data.json()` call
   // })

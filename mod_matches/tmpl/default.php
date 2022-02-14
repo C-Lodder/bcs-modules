@@ -10,38 +10,33 @@ defined('_JEXEC') or die('Restricted access');
 
 ?>
 
-<div class="uk-overflow-container" style="height:340px">
-	<table class="uk-table uk-table-striped">
+<div class="overflow-auto" style="height:340px">
+	<table>
 		<thead>
 			<tr>
 				<th>Title</th>
 				<th>Date</th>
 				<th>Score</th>
-				<th class="uk-hidden-small">Winner</th>
 			</tr>
 		</thead>
 		<tbody>
 		<?php foreach ($matches as $match) : ?>
 			<?php
-				$winner = $match->opponent;
-				$textClass = 'uk-text-danger';
+				$textClass = 'text-danger';
 
 				if ($match->score > $match->score2)
 				{
-					$winner = 'BCS';
-					$textClass = 'uk-text-success';
+					$textClass = 'text-success';
 				}
 				else if ($match->score === $match->score2)
 				{
-					$winner = 'Draw';
-					$textClass = 'uk-text-warning';
+					$textClass = 'text-warning';
 				}
 			?>
 			<tr>
-				<td>BCS <span class="uk-text-warning">vs</span> <?php echo $match->opponent; ?></td>
+				<td>BCS <span class="text-warning">vs</span> <?php echo $match->opponent; ?></td>
 				<td><?php echo $match->date; ?></td>
 				<td class="<?php echo $textClass; ?>"><?php echo $match->score; ?> : <?php echo $match->score2; ?></td>
-				<td class="uk-hidden-small"><?php echo $winner; ?></td>
 			</tr>
 		<?php endforeach; ?>
 		</tbody>

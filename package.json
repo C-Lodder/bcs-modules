@@ -12,6 +12,8 @@
     "js": "node build.js"
   },
   "devDependencies": {
-    "terser": "^4.6.13"
+    "cssnano": "^5.0.17",
+    "postcss": "^8.4.6",
+    "terser": "^5.10.0"
   }
 }

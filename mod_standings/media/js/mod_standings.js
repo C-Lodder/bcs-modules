@@ -23,12 +23,12 @@
     const scoreBCS = document.getElementById('scoreBCS')
     scoreBCS.innerHTML = totalBCS
     const classBCS = totalBCS > totalOther ? 'success' : 'danger'
-    scoreBCS.classList.add(`uk-text-${classBCS}`)
+    scoreBCS.classList.add(`text-${classBCS}`)
 
     const scoreOther = document.getElementById('scoreOther')
     scoreOther.innerHTML = totalOther
     const classOther = totalBCS > totalOther ? 'danger' : 'success'
-    scoreOther.classList.add(`uk-text-${classOther}`)
+    scoreOther.classList.add(`text-${classOther}`)
 
     const pointsEach = [...getPoints].reduce((acc, element) => {
       const { dataset: { playerId, points } } = element;
@@ -43,7 +43,7 @@
     sorted.forEach((array) => {
       const player = document.querySelector(`[data-player-id="${array[0]}"]`).innerHTML
       const item = document.createElement('li')
-      item.innerHTML = `[${array[1]}] - ${player.replace(/\<span class="match_number">\d+.<\/span><span class="top\d+ uk-text-bold">\s[0-9:.]+<\/span>\s-\s/g, ' ')}`
+      item.innerHTML = `[${array[1]}] - ${player.replace(/\<span class="match_number">\d+.<\/span><span class="top\d+ text-bold">\s[0-9:.]+<\/span>\s-\s/g, ' ')}`
       pointRanks.append(item)
     })
   })

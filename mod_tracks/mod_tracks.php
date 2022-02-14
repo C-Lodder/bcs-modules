@@ -2,7 +2,7 @@
 /**
  * @package    BCS_Latest_Tracks
  * @author     Lodder
- * @copyright  Copyright (C) 2020 Lodder. All Rights Reserved
+ * @copyright  Copyright (C) 2022 Lodder. All Rights Reserved
  * @license    GPL v3.0 or later http://www.gnu.org/licenses/gpl-3.0.html
  */
 

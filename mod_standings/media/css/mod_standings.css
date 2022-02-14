@@ -5,14 +5,35 @@
  * @license    GPL v3.0 or later http://www.gnu.org/licenses/gpl-3.0.html
  */
 
-.match_box {
+.standings {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+	gap: 15px;
+}
+.standings > div {
 	padding: 10px;
+}
+.standings-title {
+	font-weight: var(--hiq-font-weight-semibold);
+	text-align: center;
+}
+.standings-track {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	margin-bottom: 1rem;
+}
+.standings-track svg {
+	margin-inline-end: .5rem;
+}
+.match_box {
+	padding: 15px;
 	background: rgba(0, 0, 0,.3);
 }
 .match_number {
 	display: inline-block;
 	min-width: 20px;
-	text-align: right;
+	text-align: end;
 	color: #fff;
 }
 .top3 {

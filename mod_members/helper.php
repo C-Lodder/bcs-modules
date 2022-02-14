@@ -16,7 +16,7 @@ class ModMembersHelper
 {
 	public function getMembersList()
 	{
-		$db = Factory::getDbo();
+		$db = Factory::getContainer()->get('DatabaseDriver');
 
 		$query = $db->getQuery(true)
 			->select('a.id as value, a.username as username, a.lastvisitDate as lastvisitDate')

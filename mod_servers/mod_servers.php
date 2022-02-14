@@ -18,11 +18,11 @@ use Joomla\CMS\Helper\ModuleHelper;
 $private = (int)$params->get('private', 0);
 $refresh = (int)$params->get('refresh', 10) * 1000;
 
-$user    = Factory::getUser();
+$user    = Factory::getApplication()->getIdentity();
 $isAdmin = $user->authorise('core.admin');
 
 $cp = new TMFColorParser;
-$cp->replaceHex('#eeeeee', '#333333');
+$cp->replaceHex('#eeeeee', 'var(--hiq-text-color)');
 
 $helper = new ModServersHelper;
 $servers = $helper->getServers();

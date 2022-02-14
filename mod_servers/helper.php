@@ -20,7 +20,7 @@ class ModServersHelper
 
 	public function __construct()
 	{
-		$this->db  = Factory::getDbo();
+		$this->db  = Factory::getContainer()->get('DatabaseDriver');
 		$this->app = Factory::getApplication();
 	}
 

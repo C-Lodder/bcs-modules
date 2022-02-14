@@ -8,6 +8,28 @@
 (() => {
   const options = Joomla.getOptions('servers')
 
+  async function postData(url = '', data = {}) {
+    const response = await fetch(url, {
+      method: 'POST',
+	  headers: {
+	    'Content-Type': 'application/json'
+	  },
+	  body: JSON.stringify(data)
+    })
+    return response.json()
+  }
+
+  const message = {
+    username: 'Lodder',
+    avatar_url: '',
+    content: 'The message to send',
+  }
+
+  // postData('https://discord.com/api/webhooks/730714251764826114/8UQwUe-_h8uCYCf71iflIE0lXvdXBywodyw8QqPAAU6MrPpiotH3r-4RzniasbHNRd9W', message)
+  // .then(data => {
+    // console.log(data) // JSON data parsed by `data.json()` call
+  // })
+
   const notify = (server) => {
     if ('Notification' in window) {
       // Let's check whether notification permissions have already been granted
@@ -24,11 +46,11 @@
 
   const getServerData = (element) => {
     const players = {}
-    const spinners = element.querySelectorAll('.uk-icon-spin')
+    const spinners = element.querySelectorAll('.icon-spin')
 
     // Show the spinners
     spinners.forEach((item) => {
-      item.classList.remove('uk-hidden')
+      item.classList.remove('hidden')
     })
 
     fetch('index.php?option=com_ajax&module=servers&method=getServerData&format=json')
@@ -69,13 +91,17 @@
       .then(() => {
         // Hide the spinners
         spinners.forEach((item) => {
-          item.classList.add('uk-hidden')
+          item.classList.add('hidden')
         })
       })
   }
 
-  const getPlayersNames = (element) => {
-    const playerList = document.getElementById(element).querySelector('.player_list');
+  const getPlayersNames = (element, name, modalId) => {
+    const modal = document.getElementById(modalId)
+    const playerList = modal.querySelector('.player-list')
+
+    modal.querySelector('.server-name').innerHTML = name
+
     // Assemble variables to submit
     const request = {
       servers: element,
@@ -89,30 +115,32 @@
       .then(response => {
         const results = response.data
         if (results.length) {
-          playerList.innerHTML = '';
+          playerList.innerHTML = ''
           Object.keys(results).forEach((key) => {
             const result = results[key]
-            const login = options.isAdmin == 1 ? ` <span class="uk-text-muted uk-text-small">(${result.login})</span>` : ''
+            const login = options.isAdmin == 1 ? ` <span class="text-muted text-small">(${result.login})</span>` : ''
             const listItem = `<li>${result.nickname}${login}</li>`
             playerList.insertAdjacentHTML('beforeend', listItem)
           })
         } else {
-          playerList.innerHTML = '<li class="uk-text-danger">No players online</li>'
+          playerList.innerHTML = '<li class="text-danger">No players online</li>'
         }
       })
   }
 
-  window.addEventListener('DOMContentLoaded', () => {
-    jQuery('.players_modal').on({
-      'show.uk.modal': function() {
-        getPlayersNames(jQuery(this).attr('id'))
-      }
+  document.querySelectorAll('.show-players').forEach((trigger) => {
+    trigger.addEventListener('click', (event) => {
+      event.preventDefault()
+      const server = event.currentTarget.id
+      const name = event.currentTarget.closest('tr').querySelector('td').innerHTML
+      const modalId = event.currentTarget.getAttribute('data-bs-target').replace(/#/, '')
+      getPlayersNames(server, name, modalId)
     })
-
-    if (!options.guest) {
-      window.setInterval(() => {
-        getServerData(document.getElementById('tm_server'))
-      }, options.refresh)
-    }
   })
+
+  if (!options.guest) {
+    window.setInterval(() => {
+      getServerData(document.getElementById('tm_server'))
+    }, options.refresh)
+  }
 })()

@@ -16,23 +16,22 @@ HTMLHelper::_('script', 'mod_standings/mod_standings.min.js', ['version' => 'aut
 $top = (int)$params->get('top', '10');
 ?>
 
-<div class="uk-text-center uk-text-bold">
-	<h1 class="uk-article-title uk-margin-top-remove">Standings</h1>
-	<p class="uk-h3 uk-margin-top-remove">BCS (<span id="scoreBCS"></span>)<span class="uk-h4 uk-text-muted uk-display-inline-block uk-margin-small-left uk-margin-small-right">vs</span><?php echo $params->get('opponent'); ?> (<span id="scoreOther"></span>)</p>
+<div class="standings-title">
+	<h1>Standings</h1>
+	<p class="is-size-3">BCS (<span id="scoreBCS"></span>) <span class="is-size-4 text-muted">vs</span> <?php echo $params->get('opponent'); ?> (<span id="scoreOther"></span>)</p>
 </div>
 
-<div class="uk-grid uk-grid-small" data-uk-grid-margin>
+<div class="standings">
 	<?php 
 		foreach ($standings as $map)
 		{
 			if (strpos($map[0]['Name'], 'Chamber') === false)
 			{
-				echo '<div class="uk-width-medium-1-3">';
 				echo '<div class="match_box">';
-				echo '<ul class="uk-list uk-margin-bottom">';
-				echo '<li class="uk-h6"><span class="uk-icon-justify uk-icon-flag-checkered" aria-hidden="true"></span> ' . $cp->toHTML($map[0]['Name']) . '</li>';
+				echo '<ul class="list-unstyled">';
+				echo '<li class="is-size-6"><span class="uk-icon-justify uk-icon-flag-checkered" aria-hidden="true"></span> ' . $cp->toHTML($map[0]['Name']) . '</li>';
 				echo '</ul>';
-				echo '<ul class="uk-list uk-list-line">';
+				echo '<ul class="list-unstyled">';
 
 				$i = 1;
 				$points = $top;
@@ -62,26 +61,25 @@ $top = (int)$params->get('top', '10');
 
 						echo '<li class="getPoints" data-player-id="' . $v['PlayerId'] . '" data-team="' . $bcs . '" data-name="' . $v['NickName'] . '" data-points="' . $points-- . '">';
 						echo '<span class="match_number">'. $i++ . '.</span>';
-						echo '<span class="' . $class . ' uk-text-bold"> ' . $helper->formatTime($v['Score']) . '</span>';
+						echo '<span class="' . $class . ' text-bold"> ' . $helper->formatTime($v['Score']) . '</span>';
 						echo ' - ' . $nickname;
 						echo '</li>';
 					}
 				}
 				echo '</ul>';
 				echo '</div>';
-				echo '</div>';
 			}
 		}
 	?>
 </div>
 
-<div class="uk-grid" data-uk-grid-margin>
-	<div class="uk-width-medium-1-3">
-		<div class="uk-text-center uk-text-bold">
-			<h3 class="uk-margin-top-remove">Server Ranks</h3>
+<div class="standings">
+	<div>
+		<div class="text-center text-bold">
+			<h3>Server Ranks</h3>
 		</div>
 		<div class="match_box">
-			<ul class="uk-list uk-list-line">
+			<ul class="list-unstyled">
 				<?php
 					$count = 1;
 					foreach ($ranks as $rank)
@@ -100,7 +98,7 @@ $top = (int)$params->get('top', '10');
 
 						echo '<li id="' . $rank->Player . '">';
 						echo '<span class="match_number">' . $id .  '.</span> - ';
-						echo '<span class="' . $class . ' uk-text-bold">[' . $rank->Rank . ']</span> - ';
+						echo '<span class="' . $class . ' text-bold">[' . $rank->Rank . ']</span> - ';
 						echo '<span class="match_number">' . $cp->toHTML($rank->Player) .  '</span>';
 						echo '</li>';
 					}
@@ -108,12 +106,12 @@ $top = (int)$params->get('top', '10');
 			</ul>
 		</div>
 	</div>
-	<div class="uk-width-medium-1-3">
-		<div class="uk-text-center uk-text-bold">
-			<h3 class="uk-margin-top-remove">Accumulated Points</h3>
+	<div>
+		<div class="text-center text-bold">
+			<h3>Accumulated Points</h3>
 		</div>
 		<div class="match_box">
-			<ul id="point-ranks" class="uk-list uk-list-line"></ul>
+			<ul id="point-ranks" class="list-unstyled"></ul>
 		</div>
 	</div>
 </div>

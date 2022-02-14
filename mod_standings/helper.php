@@ -12,27 +12,31 @@ use Joomla\CMS\Factory;
 
 class ModStandingsHelper
 {
+	public $db = null;
+
+	public function __construct()
+	{
+		$this->db = Factory::getContainer()->get('DatabaseDriver');
+	}
+
 	public function getMatchStandings()
 	{
-		$db = Factory::getDbo();
+		$query = $this->db->getQuery(true)->select(['a.MapId', 'a.Id', 'a.PlayerId', 'a.Score', 'b.Id', 'b.Name', 'b.Author', 'c.Id', 'c.NickName'])
+			->from($this->db->qn('match_records', 'a'))
+			->join('INNER', $this->db->qn('match_maps', 'b') . ' ON (' . $this->db->qn('a.MapId') . ' = ' . $this->db->qn('b.Id') . ')')
+			->join('INNER', $this->db->qn('match_players', 'c') . ' ON (' . $this->db->qn('a.PlayerId') . ' = ' . $this->db->qn('c.Id') . ')')
+			->order($this->db->qn('a.Score') . ' ASC');
 
-		$query = $db->getQuery(true)->select(['a.MapId', 'a.Id', 'a.PlayerId', 'a.Score', 'b.Id', 'b.Name', 'b.Author', 'c.Id', 'c.NickName'])
-			->from($db->qn('match_records', 'a'))
-			->join('INNER', $db->qn('match_maps', 'b') . ' ON (' . $db->qn('a.MapId') . ' = ' . $db->qn('b.Id') . ')')
-			->join('INNER', $db->qn('match_players', 'c') . ' ON (' . $db->qn('a.PlayerId') . ' = ' . $db->qn('c.Id') . ')')
-			->order($db->qn('a.Score') . ' ASC');
-		$db->setQuery($query);
-
-		$results = $db->loadAssocList();
-		
-		if ($db->getErrorNum())
+		try
 		{
-			throw new RuntimeException($db->getErrorMsg(), $db->getErrorNum());
+			$results = $this->db->setQuery($query)->loadAssocList();
+		}
+		catch (Exception $exc)
+		{
+			return false;
 		}
 
-		$grouped = $this->groupAssoc($results, 'MapId');
-
-		return $grouped;
+		return $this->groupAssoc($results, 'MapId');
 	}
 
 	public function groupAssoc($array, $key)
@@ -49,18 +53,17 @@ class ModStandingsHelper
 
 	public function getServerRanks()
 	{
-		$db = Factory::getDbo();
+		$query = $this->db->getQuery(true)->select(['*'])
+			->from($this->db->qn('match_ranks'))
+			->order($this->db->qn('Id') . ' ASC');
 
-		$query = $db->getQuery(true)->select(['*'])
-			->from($db->qn('match_ranks'))
-			->order($db->qn('Id') . ' ASC');
-		$db->setQuery($query);
-
-		$results = $db->loadObjectList();
-		
-		if ($db->getErrorNum())
+		try
 		{
-			throw new RuntimeException($db->getErrorMsg(), $db->getErrorNum());
+			$results = $this->db->setQuery($query)->loadObjectList();
+		}
+		catch (Exception $exc)
+		{
+			return false;
 		}
 
 		return $results;

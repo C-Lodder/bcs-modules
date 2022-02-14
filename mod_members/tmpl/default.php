@@ -18,13 +18,11 @@ $exclude = [
 	'Lodder'
 ];
 
-$user = Factory::getUser();
-$isAdmin = $user->authorise('core.admin');
-
+$isAdmin = Factory::getApplication()->getIdentity()->authorise('core.admin');
 ?>
 
 <h3>Staff</h3>
-<table class="uk-table uk-table-striped">
+<table>
 	<thead>
 		<tr>
 			<th style="width: 25%">Username</th>
@@ -34,36 +32,35 @@ $isAdmin = $user->authorise('core.admin');
 	<tbody>
 		<tr>
 			<td>fiendy</td>
-			<td class="uk-text-success">Leader</td>
+			<td class="text-success">Leader</td>
 		</tr>
 		<tr>
 			<td>Mouse</td>
-			<td class="uk-text-danger">Admin</td>
+			<td class="text-danger">Admin</td>
 		</tr>
 		<tr>
 			<td>Flame</td>
-			<td class="uk-text-danger">Admin</td>
+			<td class="text-danger">Admin</td>
 		</tr>
 		<tr>
 			<td>alpha</td>
-			<td class="uk-text-danger">Admin</td>
+			<td class="text-danger">Admin</td>
 		</tr>
 		<tr>
 			<td>Lodder</td>
-			<td class="uk-text-danger">Webmaster</td>
+			<td class="text-danger">Webmaster</td>
 		</tr>
 	</tbody>
 </table>
 
 <h3>Members</h3>
-<table class="uk-table uk-table-striped">
+<table>
 	<thead>
 		<tr>
 			<th style="width: 25%">Username</th>
 			<th>Role</th>
 			<?php if ($isAdmin) : ?>
 				<th>Last Visit Date</th>
-				<th>Actions</th>
 			<?php endif; ?>
 		</tr>
 	</thead>
@@ -76,12 +73,6 @@ $isAdmin = $user->authorise('core.admin');
 				<td>Member</td>
 				<?php if ($isAdmin) : ?>
 					<td><?php echo $lastVisit['time']; ?></td>
-					<td>
-						<a href="#" class="uk-button uk-button-small uk-button-danger"><span class="uk-icon uk-icon-ban" aria-hidden="true"></span> Ban</a>
-						<?php if ($lastVisit['limit'] === true) : ?>
-							<a href="#" class="uk-button uk-button-small uk-button-primary uk-margin-right"><span class="uk-icon uk-icon-user-times" aria-hidden="true"></span> Set Inactive</a>
-						<?php endif; ?>
-					</td>
 				<?php endif; ?>
 			</tr>
 		<?php endif; ?>

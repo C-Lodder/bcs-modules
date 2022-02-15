@@ -8,11 +8,23 @@
 
 defined('_JEXEC') or die('Restricted access');
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 
-HTMLHelper::_('stylesheet', 'mod_bcsinfo/mod_bcsinfo.min.css', ['version' => 'auto', 'relative' => true]);
 HTMLHelper::_('script', 'mod_bcsinfo/mod_bcsinfo.min.js', ['version' => 'auto', 'relative' => true], ['type' => 'module']);
+
+$wa = Factory::getApplication()->getDocument()->getWebAssetManager();
+
+try
+{
+	$css = file_get_contents(JPATH_ROOT . '/media/mod_bcsinfo/css/mod_bcsinfo.min.css');
+	$wa->addInlineStyle($css);
+}
+catch (Exception $e)
+{
+	// Nothing
+}
 
 $table = '<table class="table-striped">';
 foreach ($infos as $info)

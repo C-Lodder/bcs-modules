@@ -11,8 +11,19 @@ defined('_JEXEC') or die('Restricted access');
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 
-HTMLHelper::_('stylesheet', 'mod_tracks/mod_tracks.min.css', ['version' => 'auto', 'relative' => true]);
 HTMLHelper::_('script', 'mod_tracks/mod_tracks.min.js', ['version' => 'auto', 'relative' => true], ['type' => 'module']);
+
+$wa = Factory::getApplication()->getDocument()->getWebAssetManager();
+
+try
+{
+	$css = file_get_contents(JPATH_ROOT . '/media/mod_tracks/css/mod_tracks.min.css');
+	$wa->addInlineStyle($css);
+}
+catch (Exception $e)
+{
+	// Nothing
+}
 ?>
 
 <div id="bcstracks-slider" class="bcstracks">

@@ -8,10 +8,22 @@
 
 defined('_JEXEC') or die('Restricted access');
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 
-HTMLHelper::_('stylesheet', 'mod_standings/mod_standings.min.css', ['version' => 'auto', 'relative' => true]);
-HTMLHelper::_('script', 'mod_standings/mod_standings.min.js', ['version' => 'auto', 'relative' => true]);
+HTMLHelper::_('script', 'mod_standings/mod_standings.min.js', ['version' => 'auto', 'relative' => true], ['type' => 'module']);
+
+$wa = Factory::getApplication()->getDocument()->getWebAssetManager();
+
+try
+{
+	$css = file_get_contents(JPATH_ROOT . '/media/mod_standings/css/mod_standings.min.css');
+	$wa->addInlineStyle($css);
+}
+catch (Exception $e)
+{
+	// Nothing
+}
 
 $top = (int)$params->get('top', '10');
 ?>

@@ -36,7 +36,6 @@
       const mxLogo = new Image
       const mxLogoSrc = obj.TitlePack === 'Trackmania' ? 'Trackmania' : 'TMStadium';
       mxLogo.src = `media/mod_tracks/img/${mxLogoSrc}.webp`
-      mxLogo.setAttribute('loading', 'lazy')
       mxLogo.classList.add('mx-logo')
       mxLogo.addEventListener('load', () => {
         name.prepend(mxLogo)
@@ -52,7 +51,6 @@
 
       const img = new Image
       img.src = obj.screenshot
-      img.setAttribute('loading', 'lazy')
       img.classList.add('screenshot')
       img.addEventListener('load', () => {
         anchor.prepend(img)

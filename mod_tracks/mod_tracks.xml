@@ -6,7 +6,7 @@
 	<copyright>Copyright (C) 2022 | Lodder</copyright>
 	<license>http://www.gnu.org/licenses/gpl-3.0.html</license>
 	<authorEmail>admin@bcsmania.co.uk</authorEmail>
-	<version>2.0.0</version>
+	<version>2.0.1</version>
 	<description>Latest BCS tracks - pulled from ManiaExchange</description>
 	<files>
 		<filename module="mod_tracks">mod_tracks.php</filename>

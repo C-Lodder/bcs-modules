@@ -55,12 +55,12 @@
       const list = document.createElement('div')
       list.id = href + (index + 1)
 
-      const mxLogoSrc = obj.TitlePack === 'Trackmania' ? 'Trackmania' : 'TMStadium'
+      const mxLogoSrc = obj.Game === 'tm2020' ? 'Trackmania' : 'TMStadium'
       const html = 
       `<a href="${obj.endpoint}/maps/${obj.TrackID}" target="_blank" rel="noopener">
-        <img class="screenshot" src="${obj.screenshot}" alt="Thumbnail">
+        <img class="screenshot" src="${obj.screenshot}" alt="Thumbnail" loading="lazy">
         <span class="flex align-items-center flex-wrap">
-          <img class="mx-logo" src="media/mod_tracks/img/${mxLogoSrc}.webp" alt="MX Logo">
+          <img class="mx-logo" src="media/mod_tracks/img/${mxLogoSrc}.webp" alt="MX Logo" loading="lazy">
           ${obj.GbxMapName}
         </span>
       </a>

@@ -49,6 +49,14 @@ class ModTracksHelper
 				}
 
 				$json = json_decode($result->body);
+				$game = 'tm2';
+
+				if ($endpoint === self::$endpoints[1])
+				{
+					$game = 'tm2020';
+				}
+
+				$json->Game = $game;
 
 				if ($json->totalItemCount === 0)
 				{
@@ -123,11 +131,11 @@ class ModTracksHelper
 			$result   = $val->results[0];
 			$trackId  = $result->TrackID;
 			$time     = $result->UploadedAt;
-			$endpoint = $result->TitlePack === 'Trackmania' ? self::$endpoints[1] : self::$endpoints[0];
+			$endpoint = $val->Game === 'tm2020' ? self::$endpoints[1] : self::$endpoints[0];
 
 			$tracks[$time]['endpoint']   = $endpoint;
 			$tracks[$time]['TrackID']    = $trackId;
-			$tracks[$time]['TitlePack']  = $result->TitlePack;
+			$tracks[$time]['Game']       = $val->Game;
 			$tracks[$time]['Username']   = $cp->toHTML($result->Username);
 			$tracks[$time]['GbxMapName'] = $cp->toHTML($result->GbxMapName);
 			$tracks[$time]['UploadedAt'] = $this->timeElapsed($time);

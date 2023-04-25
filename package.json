@@ -12,7 +12,7 @@
     "js": "node build.js"
   },
   "devDependencies": {
-    "cssnano": "^5.0.17",
+    "cssnano": "^6.0.0",
     "postcss": "^8.4.6",
     "terser": "^5.14.2"
   }

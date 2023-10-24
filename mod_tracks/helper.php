@@ -163,19 +163,19 @@ class ModTracksHelper
 	/**
 	 * Converts the date to an elapsed time, e.g "1 day ago"
 	 *
-	 * @param     string   $datetime  The date to be converted
-	 * @param     boolean  $full      Show the full elapsed time
+	 * @param   string   $datetime  The date to be converted
+	 * @param   boolean  $full      Show the full elapsed time
 	 *
-	 * @return    string   The elapsed time
+	 * @return  string   The elapsed time
 	 */
 	private function timeElapsed($datetime, $full = false)
 	{
 		$now  = Factory::getDate();
 		$ago  = Factory::getDate($datetime);
-		$diff = $now->diff($ago);
+		$diff = (array) $now->diff($ago);
 
-		$diff->w = floor($diff->d / 7);
-		$diff->d -= $diff->w * 7;
+		$diff['w'] = floor($diff['d'] / 7);
+		$diff['d'] -= $diff['w'] * 7;
 
 		$string = [
 			'y' => 'year',
@@ -189,9 +189,9 @@ class ModTracksHelper
 
 		foreach ($string as $k => &$v)
 		{
-			if ($diff->$k)
+			if ($diff[$k])
 			{
-				$v = $diff->$k . ' ' . $v . ($diff->$k > 1 ? 's' : '');
+				$v = $diff[$k] . ' ' . $v . ($diff[$k] > 1 ? 's' : '');
 			}
 			else
 			{

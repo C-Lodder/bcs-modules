@@ -10,7 +10,6 @@ defined('_JEXEC') or die('Restricted access');
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
-use Joomla\Utilities\ArrayHelper;
 
 class ModMembersHelper
 {
@@ -32,10 +31,10 @@ class ModMembersHelper
 	{
 		$now  = Factory::getDate();
 		$ago  = Factory::getDate($datetime);
-		$diff = $now->diff($ago);
+		$diff = (array) $now->diff($ago);
 
-		$diff->w = floor($diff->d / 7);
-		$diff->d -= $diff->w * 7;
+		$diff['w'] = floor($diff['d'] / 7);
+		$diff['d'] -= $diff['w'] * 7;
 
 		$string = [
 			'y' => 'year',
@@ -52,21 +51,21 @@ class ModMembersHelper
 
 		foreach ($string as $k => &$v)
 		{
-			if ($diff->$k)
+			if ($diff[$k])
 			{
 				$translated = Text::_($v);
 
-				if ($diff->$k > 1)
+				if ($diff[$k] > 1)
 				{
 					$translated = Text::_($v . 's');
 				}
 
-				if (($diff->$k > 7 && $v === 'month') || $v === 'year')
+				if (($diff[$k] > 7 && $v === 'month') || $v === 'year')
 				{
 					$return['limit'] = true;
 				}
 
-				$v = $diff->$k . ' ' . $translated;
+				$v = $diff[$k] . ' ' . $translated;
 			}
 			else
 			{
